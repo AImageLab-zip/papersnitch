@@ -1,0 +1,7 @@
+Serviva un modo per ottenere le informazioni relative ai paper da analizzare reperibili sul sito della conferenza. 
+La metodologia scelta è stata quella dello scraping data l'indispobilità di API pubbliche per l'estrazione dei dati.
+In prima battuta si è pensato di optare per il servizio web di jina, il quale dato un https restituisce una versione compatta e schematizzata in markdown del sito. 
+
+Non restituiva però la totalità delle informazioni necessarie (le metareview), pertanto ho optato per utilizzare crawl4ai, una libreria dove è possibile delle configurazioni per lo scraping, il che lo rende più flessibile e adatto al nostro scopo.
+    Ho quindi creato un crawler che estrae le informazioni dei paper che si trovano nella pagina principale della conferenza (autori, titolo e link al paper), 
+    in seguito viene visitata la pagina del singolo paper per estrarre il resto delle informazioni (abstract, link al codice, dataset, DOI, supplementary material, review, author feedback e metareview).
