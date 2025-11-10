@@ -18,6 +18,10 @@ COPY Pipfile Pipfile.lock /app/
 
 RUN pipenv install --system --deploy --ignore-pipfile
 
+RUN playwright install-deps
+RUN playwright install
+
+
 
 # --- Stage 2: Final ---
 FROM python:3.12-slim AS final

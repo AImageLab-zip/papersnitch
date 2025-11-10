@@ -20,6 +20,23 @@ Sono riuscito a scaricare i dati di tutti i paper dal sito del MICCAI,
 Ho provato ad utilizzare loaddata per caricare i dati sul db, 
     ho avuto problemi con la formattazione del mio JSON e con i campi del database già esistente. 
 Ho dovuto quindi accedere al db tramite shell per eliminare le tabelle esistenti e rifare le migrations con django.
-Ora devo capire come recuperare il testo del pdf del paper ed inserirlo nel db.
-- Come mettere il timestamp quando uploado i file sul db?
-- Come aggiungere gli autori che avrò salvato come field nel json?
+
+5/11/2025
+Creato lo script load_data.py per caricare sul db i paper. ancora non funziona perchè c'è ancora da controllare cosa fa il codice creato da claude.
+Aggiunti modelli del dataset e del PDFPaper
+Aggiunto il cleaning degli autori e dei dataset
+
+6/11/2025
+Completato il file load_data.py per caricare i dati sul db. Al momento funziona per poter caricare un paper con i relativi datasets
+
+7/11/2025
+Aggiunto pdf al model e aggiunto su load_data il carimento del file sul db, iniziato a guardare come estrarre informazioni dal pdf (libreria pyPDF2)
+TODO:
+- Estrazione dati dal pdf
+- Elaborazioni dati estratti con chatgpt
+- rimuovere parte non necessaria dalla meta review
+
+DOMANDE:
+- Come controllare se il pdf che c'è online sia aggiornato? è possibile che venga cambiato nel tempo?
+
+

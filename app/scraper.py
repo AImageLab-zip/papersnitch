@@ -3,6 +3,7 @@ import json
 import re
 
 import requests
+from django.core.files.base import ContentFile
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -65,12 +66,9 @@ def extract_sections(markdown_text):
     return sections
 
 
-def get_schema(html_sample=None, model=None):
+def get_schema(html_sample=None):
 
-    if model is not None:
-        schema_file = f"{MEDIA_DIR}/home_schema_{model}.json"
-    else:
-        schema_file = f"{MEDIA_DIR}/home_schema.json"
+    schema_file = f"{MEDIA_DIR}/home_schema.json"
 
     try:
         with open(schema_file, "r") as f:
@@ -94,9 +92,9 @@ def get_schema(html_sample=None, model=None):
     return schema
 
 
-async def home_crawling(url, schema, model=None):
+async def home_crawling(url, schema):
     try:
-        with open(f"{MEDIA_DIR}/home_claude.json", "r") as f:
+        with open(f"{MEDIA_DIR}/home.json", "r") as f:
             data = json.load(f)
             print(f"Loaded Paper list")
             return data
@@ -110,10 +108,7 @@ async def home_crawling(url, schema, model=None):
                 config=config,
             )
 
-            if model is not None:
-                file_name = f"{MEDIA_DIR}/home_{model}.json"
-            else:
-                file_name = f"{MEDIA_DIR}/home.json"
+            file_name = f"{MEDIA_DIR}/home.json"
 
             if result.success:
                 data = json.loads(result.extracted_content)
@@ -141,13 +136,14 @@ async def paper_crawling(url, schema):
         return extract_sections(paper_md)
 
 
-def clean_section(paper, section, section_name):
+def clean_section(paper, section=None, section_name=None):
 
     if section_name == "link_to_the_dataset(s)":
         dataset_pattern = r"([^:]+):\s*<([^>]+)>"
         matches = re.findall(dataset_pattern, section)
-        urls = [url.strip() for name, url in matches]
-        paper["datasets"] = ", ".join(urls) if urls else None
+        paper["datasets"] = (
+            {name.strip(): url.strip() for name, url in matches} if matches else None
+        )
 
     elif section_name == "link_to_the_code_repository":
         code_pattern = r"<([^>]+)>"
@@ -166,18 +162,30 @@ def clean_section(paper, section, section_name):
         supp_pattern = r"Supplementary Material:\s*(.+?)(?:\n|$)"
         supp_match = re.search(supp_pattern, section)
 
+        pdf_pattern = r"Main Paper \(Open Access Version\):\s*<([^>]+)>"
+        pdf_match = re.search(pdf_pattern, section)
+
         if doi_match:
             doi_value = doi_match.group(1).strip()
-            if doi_value.lower() in ["not yet available", "not available"]:
+            if doi_value.lower().startswith("not"):
                 paper["doi"] = None
             else:
                 paper["doi"] = doi_value
         else:
             paper["doi"] = None
 
+        if pdf_match:
+            pdf_value = pdf_match.group(1).strip()
+            if pdf_value.lower().startswith("not"):
+                paper["pdf_url"] = None
+            else:
+                paper["pdf_url"] = pdf_value
+        else:
+            paper["pdf_url"] = None
+
         if supp_match:
             supp_value = supp_match.group(1).strip()
-            if supp_value.lower() in ["not submitted", "not available"]:
+            if supp_value.lower().startswith("not"):
                 paper["supp_materials"] = None
             else:
                 paper["supp_materials"] = supp_value
@@ -187,29 +195,36 @@ def clean_section(paper, section, section_name):
     elif section_name == "meta-review":
         paper["meta_review"] = section
 
+    elif section_name == "authors":
+        paper["authors"] = ", ".join(
+            [item["author"].replace(",", "") for item in paper["authors"]]
+        )
+
     else:
         paper[section_name] = section
 
 
-async def get_data(base_url, url, model=None, html_sample=None):
+async def get_data(base_url, url, html_sample=None):
 
     # Generate schema if not provided
-    schema = get_schema(html_sample, model)
+    schema = get_schema(html_sample)
 
     # Home crawling
-    home_data = await home_crawling(url, schema, model)
+    home_data = await home_crawling(url, schema)
 
     # Paper crawling
     papers_list = []
     count = 0  # TESTING
     for paper in home_data:
-        if count >= 1:  # TESTING
-            break
-        count += 1  # TESTING
+        # if count >= 1:  # TESTING
+        #     break
+        # count += 1  # TESTING
+        if paper["authors"]:
+            clean_section(paper, section_name="authors")
         if paper["paper_url"]:
             if not paper.get("paper_url").startswith("https://"):
                 paper["paper_url"] = base_url + paper.get("paper_url")
-            paper_sections = await paper_crawling(paper["paper_url"], schema)
+            crawled_sections = await paper_crawling(paper["paper_url"], schema)
             valid_sections = [
                 "abstract",
                 "links_to_paper_and_supplementary_materials",
@@ -220,9 +235,10 @@ async def get_data(base_url, url, model=None, html_sample=None):
                 "meta-review",
             ]
             # prendere solo le sezioni in sections e aggiungerle agli altri dati
-            for paper_section in paper_sections:
-                if paper_section in valid_sections:
-                    clean_section(paper, paper_sections[paper_section], paper_section)
+            for section in crawled_sections:
+                if section in valid_sections:
+
+                    clean_section(paper, crawled_sections[section], section)
 
             papers_list.append(paper)
 
@@ -235,5 +251,5 @@ if __name__ == "__main__":
 
     url = "https://papers.miccai.org/miccai-2025"
 
-    asyncio.run(get_data("https://papers.miccai.org", url, model="claude"))
+    asyncio.run(get_data("https://papers.miccai.org", url))
     # print("\nAll sections:", all_sections)
