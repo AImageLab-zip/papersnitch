@@ -1,48 +1,46 @@
-# --- Stage 1: Builder ---
-FROM python:3.12-slim AS builder
+# ================================= Build stage ================================
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
+
+# Disable Python downloads, because we want to use the system interpreter
+# across both images. 
+ENV UV_PYTHON_DOWNLOADS=0
 
 WORKDIR /app
-
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN pip install --upgrade pip
-RUN pip install pipenv
-
-COPY Pipfile Pipfile.lock /app/
-
-RUN pipenv install --system --deploy --ignore-pipfile
-
-RUN playwright install-deps
-RUN playwright install
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
+COPY . /app
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
 
 
-
-# --- Stage 2: Final ---
-FROM python:3.12-slim AS final
-
-WORKDIR /app
-
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+# ================================= Final stage ================================
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS final
 
 RUN apt-get update && apt-get install -y \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
+# Setup a non-root user
+RUN groupadd --system --gid 999 nonroot \
+ && useradd --system --gid 999 --uid 999 --create-home nonroot
 
-COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
+COPY --from=builder --chown=nonroot:nonroot /app /app
 
-COPY . .
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Set UV cache directory to user's home
+ENV UV_CACHE_DIR="/home/nonroot/.cache/uv"
+
+RUN playwright install-deps
+RUN playwright install
+
+USER nonroot
+
+WORKDIR /app
 
 EXPOSE 8000
-
-RUN chmod +x ./entrypoint.prod.sh
 
 CMD ["/app/entrypoint.prod.sh"]

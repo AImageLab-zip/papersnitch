@@ -31,12 +31,34 @@ Completato il file load_data.py per caricare i dati sul db. Al momento funziona 
 
 7/11/2025
 Aggiunto pdf al model e aggiunto su load_data il carimento del file sul db, iniziato a guardare come estrarre informazioni dal pdf (libreria pyPDF2)
+
+10/11/2025
+Aggiunto supplementary material come filefield e caricato sul modello da load_data.py
+
+11/11/2025
+Iniziato a testare llm per l'estrazione delle informazioni dal pdf in read_pdf.py
+
+12/11/2025
+Riscontrati problemi nell'installare genai con pipenv (non riusciva a completare il locking).
+Iniziato a setuppare uv come nuovo gestore al posto di pipenv. Creato dockerfile per uv.
+
+13/11/2025
+Integrato in modo completo (spero) uv nel progetto del docker di django-web
+
+14/11/2025
+Scancherato con i volumi di docker per ottenere i file creati dal container nell'host, problema non risolto ma forse non è un problema
+
 TODO:
-- Estrazione dati dal pdf
-- Elaborazioni dati estratti con chatgpt
-- rimuovere parte non necessaria dalla meta review
+    - Estrazione dati dal pdf
+    - Elaborazioni dati estratti con chatgpt
+    - Capire come gestire i file creati dal container (basta vederli dentro il container o è più comodo che anche l'host li abbia?)
+    - Ottenere un output decente per le informazioni da estrarre dal pdf con llm (gemini pro could be ok, flash assolutamente no)
+   
 
 DOMANDE:
-- Come controllare se il pdf che c'è online sia aggiornato? è possibile che venga cambiato nel tempo?
+    - Come controllare se il pdf che c'è online sia aggiornato? è possibile che venga cambiato nel tempo?
+    - Abbassare i privilegi dell'utente nel docker
+    - Creazione di un venv nel docker
+    - Come ottenere i link dei dataset dal pdf del paper, si potrebbe avere a disposizione solamente la citazione
 
 

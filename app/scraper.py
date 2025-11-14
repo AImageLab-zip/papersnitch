@@ -158,8 +158,8 @@ def clean_section(paper, section=None, section_name=None):
         doi_pattern = r"SpringerLink \(DOI\):\s*(.+?)(?:\n|$)"
         doi_match = re.search(doi_pattern, section)
 
-        # Extract Supplementary Material value (everything after "Supplementary Material:" until newline or end)
-        supp_pattern = r"Supplementary Material:\s*(.+?)(?:\n|$)"
+        # Extract Supplementary Material value (URL without angle brackets)
+        supp_pattern = r"Supplementary Material:\s*<?([^>\n]+)>?"
         supp_match = re.search(supp_pattern, section)
 
         pdf_pattern = r"Main Paper \(Open Access Version\):\s*<([^>]+)>"
@@ -193,7 +193,10 @@ def clean_section(paper, section=None, section_name=None):
             paper["supp_materials"] = None
 
     elif section_name == "meta-review":
-        paper["meta_review"] = section
+        # Remove everything from "[**back to top**]" onwards
+        back_to_top_pattern = r"\[\*\*back to top\*\*\].*"
+        section = re.sub(back_to_top_pattern, "", section, flags=re.DOTALL)
+        paper["meta_review"] = section.strip()
 
     elif section_name == "authors":
         paper["authors"] = ", ".join(
@@ -216,9 +219,9 @@ async def get_data(base_url, url, html_sample=None):
     papers_list = []
     count = 0  # TESTING
     for paper in home_data:
-        # if count >= 1:  # TESTING
-        #     break
-        # count += 1  # TESTING
+        if count >= 10:  # TESTING
+            break
+        count += 1  # TESTING
         if paper["authors"]:
             clean_section(paper, section_name="authors")
         if paper["paper_url"]:

@@ -2,16 +2,37 @@ services:
   django-web:
     build: ./app
     container_name: django-web
+    user: "${UID:-1000}:${GID:-1000}" # Comment out for development
     ports:
       - "8000:8000"
     volumes:
       - ./static:/app/staticfiles
       - ./app:/app
+      - django-venv:/app/.venv # Named volume
+      - ./media:/app/media
+      - ./media_container:/app/media_container
+    environment:
+      - UV_CACHE_DIR=/tmp/uv-cache # Cache in /tmp for development
     env_file:
       - .env.local
+      - .env.llm
     depends_on:
       - mysql
-    command: python manage.py runserver 0.0.0.0:8000
+    command: uv run manage.py runserver 0.0.0.0:8000
+    develop:
+      watch:
+        # Sync the working directory with the `/app` directory in the container
+        - action: sync
+          path: .
+          target: /app
+          # Exclude the project virtual environment — it could be for a
+          # different platform in the container
+          ignore:
+            - .venv/
+
+        # Rebuild the image if dependencies change by checking uv.lock
+        - action: rebuild
+          path: ./uv.lock
 
   nginx:
     image: nginx
@@ -55,3 +76,6 @@ services:
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     env_file:
       - .env.local
+volumes:
+  django-venv:
+  django-media:

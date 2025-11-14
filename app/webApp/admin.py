@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Operations, Conference, Paper, Dataset
+from .models import Operations, Conference, Paper, Dataset, PDFPaper
 
 
 @admin.register(Operations)
@@ -28,4 +28,10 @@ class DatasetAdmin(admin.ModelAdmin):
     list_display = ["name", "url", "last_update"]
     list_filter = ["dimension"]
     search_fields = ["name"]
+    readonly_fields = ["last_update"]
+
+
+@admin.register(PDFPaper)
+class PDFPaperAdmin(admin.ModelAdmin):
+    list_display = ["paper", "last_update"]
     readonly_fields = ["last_update"]

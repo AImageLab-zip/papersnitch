@@ -51,8 +51,11 @@ class Paper(models.Model):
         max_length=255, unique=True, verbose_name="DOI", blank=True, null=True
     )
     abstract = models.TextField(verbose_name="Abstract")
-    supp_materials = models.TextField(
-        verbose_name="Supplementary materials", blank=True, null=True
+    supp_materials = models.FileField(
+        upload_to="supp_materials",
+        verbose_name="Supplementary materials",
+        blank=True,
+        null=True,
     )
     paper_url = models.URLField(verbose_name="Paper URL", blank=True, max_length=500)
     pdf_url = models.URLField(verbose_name="PDF URL", blank=True, max_length=500)
@@ -74,7 +77,6 @@ class Paper(models.Model):
         null=True,
     )
 
-    text = models.TextField(verbose_name="Full paper text", blank=True, null=True)
     reviews = models.TextField(verbose_name="All reviews text", blank=True, null=True)
     author_feedback = models.TextField(
         verbose_name="Author feedback", blank=True, null=True

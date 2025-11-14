@@ -5,20 +5,21 @@ from django.db import transaction
 import argparse
 import requests
 
-BASE_DIR = Path(__file__).resolve().parent
-sys.path.append(str(BASE_DIR))
 
 import django
 from django.core.files.base import ContentFile
 import os
-from dotenv import load_dotenv
-
-load_dotenv(BASE_DIR / ".env.local")
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web.settings")
 django.setup()
 
+from web.settings import BASE_DIR, MEDIA_ROOT
 from webApp.models import Paper, Dataset, Conference
+from dotenv import load_dotenv
+
+sys.path.append(str(BASE_DIR))
+
+load_dotenv(BASE_DIR / ".env.local")
 
 
 def parseArguments():
@@ -26,29 +27,54 @@ def parseArguments():
         description="Load papers from JSON file into the database"
     )
     parser.add_argument(
-        "confName",
+        "-d",
+        "--defaults",
+        action="store_true",
+        help="Use default values for conference information",
+    )
+    parser.add_argument(
+        "--confName",
         type=str,
         help="Name of the conference",
     )
     parser.add_argument(
-        "confYear",
+        "--confYear",
         type=int,
         help="Year of the conference",
     )
     parser.add_argument(
-        "confUrl",
+        "--confUrl",
         type=str,
         help="URL of the conference website",
     )
     parser.add_argument(
         "--file",
         type=str,
-        default="media/papers_info.json",
+        default="papers_info.json",
         help="Path to JSON file",
     )
 
     args = parser.parse_args()
     return args
+
+
+def save_supplementary_materials(paper, conference_name, conference_year, supp_url):
+
+    try:
+        print(f"  ↓ Downloading supplementary materials from: {supp_url}")
+        response = requests.get(supp_url, timeout=30)
+        response.raise_for_status()
+        # per ottenere i byte che compongono il file
+        supp_materials_content = response.content
+
+    except requests.RequestException as e:
+        print(f"Error during the download of {supp_url}: {e}")
+        exit(1)
+    name = supp_url.split("/")[-1]
+    name = f"{conference_name}_{conference_year}_{name}"
+    supp_materials = ContentFile(supp_materials_content, name=name)
+    print(f"File saved: {supp_materials.name}")
+    return supp_materials
 
 
 def save_pdf(paper, conference_name, conference_year):
@@ -148,7 +174,7 @@ def load_data(file_path, conference_name, conference_year, conference_url):
 
             if not exsisting_paper and paper.get("doi"):
                 exsisting_paper = Paper.objects.filter(doi=paper["doi"]).first()
-
+            supp_materials = ""
             if exsisting_paper:
                 # Update existing paper
                 for key, value in paper.items():
@@ -159,11 +185,20 @@ def load_data(file_path, conference_name, conference_year, conference_url):
                 paper = exsisting_paper
             else:
                 # Create new paper
+                supp_materials_url = paper.pop("supp_materials", None)
                 paper = Paper.objects.create(**paper)
                 created_papers += 1
                 print(f"✓ Created paper: {paper.title}...")
 
             pdf_file = save_pdf(paper, conference_name, conference_year)
+            if supp_materials_url:
+                supp_materials = save_supplementary_materials(
+                    paper, conference_name, conference_year, supp_materials_url
+                )
+                paper.supp_materials.save(
+                    supp_materials.name, supp_materials, save=True
+                )
+
             paper.pdf_file.save(pdf_file.name, pdf_file, save=True)
             # Set many-to-many relationship
             # paper.authors.set(authors_list)
@@ -183,14 +218,19 @@ def load_data(file_path, conference_name, conference_year, conference_url):
 if __name__ == "__main__":
 
     args = parseArguments()
-
-    if args is None:
+    if args.defaults is None and (
+        args.confName is None or args.confYear is None or args.confUrl is None
+    ):
         print(
-            f"Information about the conference not provided to {__file__.split('/')[-1]}"
+            f"Information about the conference not provided (use -d for defaults values)"
         )
         exit(1)
 
-    json_file = args.file if args.file else BASE_DIR / "media" / "papers_info.json"
+    json_file = MEDIA_ROOT / args.file if args.file else MEDIA_ROOT / "papers_info.json"
+    if args.defaults is not None:
+        args.confName = "MICCAI"
+        args.confYear = "2025"
+        args.confUrl = "https://papers.miccai.org/miccai-2025/"
 
     print(f"Loading papers from: {json_file}")
     load_data(json_file, args.confName, args.confYear, args.confUrl)

@@ -18,6 +18,7 @@ sqlparse = "==0.5.3"
 requests = "*"
 crawl4ai = "*"
 asyncio = "*"
+pypdf = "*"
 
 [dev-packages]
 
