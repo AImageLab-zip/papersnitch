@@ -6,12 +6,18 @@ import requests
 from django.core.files.base import ContentFile
 from pathlib import Path
 from dotenv import load_dotenv
+from copy import deepcopy
 
 from crawl4ai import *
 import asyncio
 
-load_dotenv(".env.llm")
+
 BASE_DIR = Path(__file__).resolve().parent
+
+load_dotenv(".env.llm")
+load_dotenv(".env.local")
+
+MAX_CONCURRENT_CRAWLS = int(os.getenv("MAX_CONCURRENT_CRAWLS"))
 MEDIA_DIR = BASE_DIR / "media"
 
 
@@ -207,47 +213,64 @@ def clean_section(paper, section=None, section_name=None):
         paper[section_name] = section
 
 
+# TODO remove it
+def _paper_slug(paper_url: str | None) -> str:
+    if not paper_url:
+        return "paper"
+    slug = Path(paper_url.rstrip("/")).name or "paper"
+    return slug.replace(".html", "") or "paper"
+
+
+# TODO remove it
+def save_paper(paper: dict):
+    file_path = MEDIA_DIR / "papers" / f"{_paper_slug(paper.get('paper_url'))}.txt"
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(paper, f, ensure_ascii=False, indent=2)
+
+
+async def _process_paper(paper: dict, base_url: str, schema) -> dict | None:
+    paper_data = deepcopy(paper)
+
+    if paper_data.get("authors"):
+        clean_section(paper_data, section_name="authors")
+
+    paper_url = paper_data.get("paper_url")
+    if not paper_url:
+        return None
+    if not paper_url.startswith("https://"):
+        paper_url = base_url + paper_url
+        paper_data["paper_url"] = paper_url
+
+    crawled_sections = await paper_crawling(paper_url, schema)
+    for section in crawled_sections:
+        clean_section(paper_data, crawled_sections[section], section)
+
+    # TODO remove it when i'll switch the db saves
+    save_paper(paper_data)
+    return paper_data
+
+
 async def get_data(base_url, url, html_sample=None):
-
-    # Generate schema if not provided
     schema = get_schema(html_sample)
-
-    # Home crawling
     home_data = await home_crawling(url, schema)
 
-    # Paper crawling
-    papers_list = []
-    count = 0  # TESTING
-    for paper in home_data:
-        if count >= 10:  # TESTING
+    semaphore = asyncio.Semaphore(MAX_CONCURRENT_CRAWLS)
+
+    async def limited_process(p):
+        async with semaphore:
+            return await _process_paper(p, base_url, schema)
+
+    tasks = []
+    for idx, paper in enumerate(home_data):
+        if idx >= 10:  # TESTING
             break
-        count += 1  # TESTING
-        if paper["authors"]:
-            clean_section(paper, section_name="authors")
-        if paper["paper_url"]:
-            if not paper.get("paper_url").startswith("https://"):
-                paper["paper_url"] = base_url + paper.get("paper_url")
-            crawled_sections = await paper_crawling(paper["paper_url"], schema)
-            valid_sections = [
-                "abstract",
-                "links_to_paper_and_supplementary_materials",
-                "link_to_the_code_repository",
-                "link_to_the_dataset(s)",
-                "reviews",
-                "author_feedback",
-                "meta-review",
-            ]
-            # prendere solo le sezioni in sections e aggiungerle agli altri dati
-            for section in crawled_sections:
-                if section in valid_sections:
+        tasks.append(asyncio.create_task(limited_process(paper)))
 
-                    clean_section(paper, crawled_sections[section], section)
-
-            papers_list.append(paper)
-
-    # Write all papers as a list of dictionaries
-    with open(f"{MEDIA_DIR}/papers_info.json", "w", encoding="utf-8") as f:
-        json.dump(papers_list, f, ensure_ascii=False, indent=4)
+    papers_list = [paper for paper in await asyncio.gather(*tasks) if paper]
+    # # Write all papers as a list of dictionaries
+    # with open(f"{MEDIA_DIR}/papers_info.json", "w", encoding="utf-8") as f:
+    #     json.dump(papers_list, f, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":

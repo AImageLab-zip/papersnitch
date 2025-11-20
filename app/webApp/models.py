@@ -32,9 +32,9 @@ class Conference(models.Model):
 
 # class Author(models.Model):
 
-#     email = models.CharField(max_length=500, verbose_name="Authot mail")
+#     email = models.CharField(max_length=500, verbose_name="Authot mail", blank=True, null=True)
 #     name = models.CharField(max_length=500, verbose_name="Author name")
-#     flag = models.BooleanField(default=False)
+#     is_sus = models.BooleanField(default=False)
 
 #     class Meta:
 #         verbose_name = "Author"
@@ -43,9 +43,12 @@ class Conference(models.Model):
 #     def __str__(self):
 #         return self.name
 
+# TODO aggiungere un modello relativo agli score, sia per aver salvato il valore che il testo che ha portato a tale valore
+
 
 class Paper(models.Model):
 
+    # TODO add a field related to the state of a paper (not reviewed, reviewed, review and rebuttal, published, etc)
     title = models.CharField(max_length=500, verbose_name="Title")
     doi = models.CharField(
         max_length=255, unique=True, verbose_name="DOI", blank=True, null=True

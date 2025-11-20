@@ -2,15 +2,13 @@ services:
   django-web:
     build: ./app
     container_name: django-web
-    user: "${UID:-1000}:${GID:-1000}" # Comment out for development
     ports:
       - "8000:8000"
     volumes:
       - ./static:/app/staticfiles
-      - ./app:/app
+      - ./app:/app # Autoload code changes in the container
       - django-venv:/app/.venv # Named volume
-      - ./media:/app/media
-      - ./media_container:/app/media_container
+
     environment:
       - UV_CACHE_DIR=/tmp/uv-cache # Cache in /tmp for development
     env_file:
@@ -78,4 +76,3 @@ services:
       - .env.local
 volumes:
   django-venv:
-  django-media:

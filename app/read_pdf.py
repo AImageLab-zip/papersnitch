@@ -1,12 +1,21 @@
-from openai import max_retries
-from pypdf import PdfReader
+import json
 from pathlib import Path
 import sys
 import os
-from dotenv import load_dotenv
-from google import genai
-import argparse
 import time
+
+import argparse
+
+from dotenv import load_dotenv
+from pypdf import PdfReader
+
+from google import genai
+from pydantic import BaseModel, Field
+from typing import Optional, Dict
+
+
+from gitingest import ingest_async, ingest
+
 
 api_key = os.getenv("GEMINI_API_KEY")
 
@@ -29,11 +38,36 @@ def parseArguments():
     return args
 
 
-def get_instruction(category):
+class Paper(BaseModel):
+    """Schema for extracting information from scientific papers"""
+
+    authors_mail: Optional[Dict[str, str]] = Field(
+        default=None,
+        description="Dictionary mapping author names to their email addresses, the amount of emails always correspond to the number of authors, the authors should be saved in the same order as you found in the paper",
+    )
+    datasets: Optional[Dict[str, str]] = Field(
+        default=None, description="Dictionary mapping dataset names to their citation"
+    )
+    code_url: Optional[str] = Field(
+        default=None, description="URL of the code repository"
+    )
+
+
+def get_code(url, file=None):
+    if file is not None and os.path.exists(file):
+        ingest(url, output=file, include_patterns=["*.md", "docs/", "*.ipynb"])
+
+    summary, tree, content = ingest(
+        url, output=file, include_patterns=["*.md", "docs/", "*.ipynb"]
+    )
+    return {"summary": summary, "tree": tree, "content": content}
+
+
+def get_prompt(category):
     if category == "cleaning":
         return "### INSTRUCTION: You are an expert data cleaner. Follow these steps: 1. Analyse the DATA. 2. Clean the DATA by removing any noise related the fact the text provided comes from a pdf 3. Fix the synthax of all the formulas and math characters using a mathjax one 4. Do not provide any explanation or further text. Only provide the cleaned information. —- ### DATA:"
-    elif category == "information":
-        return '### INSTRUCTION: You are an expert at reading scientific papers. Follow these steps: 1. Analyse the PAPER. 2. Extract these information from the PAPER, the author mail "authors_mail" (as a dictionary) the amount of emails always correspond to the number of authors, the authors should be written in the output in the same order as you found in the paper, the datasets used in the paper "datasets" (as a dictionary), the code of the repository "code_url" 3. Structure your response using the following JSON schema: { "authors_mail":{"mail@example.com":"Name Surname"},"datasets":{"name_1":"url","name_2":"url",...}, "code_url": "..."} 4. If a value is not found put null 5. Do not provide any explanation or further text Only provide the JSON. —- ### PAPER:'
+    elif category == "extraction":
+        return '### INSTRUCTION: You are an expert at reading scientific papers. Follow these steps: 1. Extract these information from the PAPER, the author mail "authors_mail" (as a dictionary), the datasets used in the paper "datasets" (as a dictionary), the code of the repository "code_url" 2. Structure your response using the following JSON schema: { "authors_mail":{"Name Surname":"mail@example.com"},"datasets":{"name_1":"url","name_2":"url",...}, "code_url": "..."} 3. If a value is not found put null 4. Do not provide any explanation or further text Only provide the JSON. —- ### PAPER:'
 
 
 def read_pdf(pdf_name):
@@ -46,40 +80,34 @@ def read_pdf(pdf_name):
 
 
 def main():
-    text = read_pdf("miccai_2025_0308_paper.pdf")
-    with open(PDF_DIR / "miccai_2025_0308_paper.txt", "w") as text_file:
-        text_file.write(text)
+    # text = read_pdf("miccai_2025_0308_paper.pdf")
+    # with open(PDF_DIR / "miccai_2025_0308_paper.txt", "w") as text_file:
+    #     text_file.write(text)
+
+    with open(PDF_DIR / "miccai_2025_0308_paper.txt", "r") as text_file:
+        text = text_file.read()
 
     client = genai.Client(api_key=api_key)
 
-    # ~~~~~~~~~ Set What Extract from the pdf ~~~~~~~~~#
-    extraction_category = "information"  # cleaning / information
+    # ~~~~~~~~~ LLM Parameters ~~~~~~~~~#
+    extraction_category = "code"  # cleaning / extraction / mail_extraction
+    version = "flash"
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
     # Retry logic for server errors
     count = 0
     retry_delay = 1  # seconds
 
-    while True:
-        try:
-            response = client.models.generate_content(
-                model="gemini-2.5-pro",
-                contents=get_instruction(extraction_category) + text,
-            )
-            break  # Success, exit retry loop
-        except Exception as e:
+    response = {"code_url": "https://github.com/Siyou-Li/u2Tokenizer"}
 
-            print(
-                f"Error: {e}. Retrying in {retry_delay} seconds... (Attempt {count + 1})"
-            )
-            time.sleep(retry_delay)
-            if retry_delay < 30:
-                retry_delay += 2  # Exponential backoff
-
-    with open(
-        PDF_DIR / f"miccai_2025_0308_paper_{extraction_category}.txt", "w"
-    ) as text_file:
-        text_file.write(response.text)
+    if response is not None:
+        response = get_code(
+            response["code_url"],
+        )
+    with open(PDF_DIR / f"miccai_2025_0308_{extraction_category}.txt", "w") as file:
+        for k, v in response.items():
+            file.write(f"### {k} ###\n")
+            file.write(v + "\n\n")
 
 
 if __name__ == "__main__":

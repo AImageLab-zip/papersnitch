@@ -19,15 +19,14 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # ================================= Final stage ================================
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS final
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y && apt-get install -y git\
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
-# Setup a non-root user
-RUN groupadd --system --gid 999 nonroot \
- && useradd --system --gid 999 --uid 999 --create-home nonroot
+COPY --from=builder /app /app
 
-COPY --from=builder --chown=nonroot:nonroot /app /app
+# Ensure media directory exists
+RUN mkdir -p /app/media
 
 ENV PATH="/app/.venv/bin:$PATH"
 
@@ -36,8 +35,6 @@ ENV UV_CACHE_DIR="/home/nonroot/.cache/uv"
 
 RUN playwright install-deps
 RUN playwright install
-
-USER nonroot
 
 WORKDIR /app
 

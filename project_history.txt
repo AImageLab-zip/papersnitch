@@ -48,17 +48,91 @@ Integrato in modo completo (spero) uv nel progetto del docker di django-web
 14/11/2025
 Scancherato con i volumi di docker per ottenere i file creati dal container nell'host, problema non risolto ma forse non è un problema
 
+17/11/2025
+Capire se pydantic può essere utile come libreria per ottenere dati formattati da LLM
+
+19/11/2025
+Ricerca su API di KIMI k2 (moonshot/byteplus 500k free token)
+sistemati volumi docker e messo permessi di root all'utente del container di django altrimenti non andava crawl4ai
+Parallelizzato lo scraping dei singoli paper
+
+20/11/2025
+Creato un primo prototipo di chiamata a KIMI2, provato a testare il modello sul criterio di annotation. Aggiornato odckerfile
+
 TODO:
     - Estrazione dati dal pdf
     - Elaborazioni dati estratti con chatgpt
     - Capire come gestire i file creati dal container (basta vederli dentro il container o è più comodo che anche l'host li abbia?)
-    - Ottenere un output decente per le informazioni da estrarre dal pdf con llm (gemini pro could be ok, flash assolutamente no)
+    - Mergare output di diversi LLm
+    - Conteggiare umero token usati per ogni chiamata LLM
+    - Controllare come funziona KIMI2 per le API
+    - Controllare cosa è fattibile valutare senza LLM e con LLM
+    - Parallelizzare la lettura dei pdf
+    - Finire di comprendere come funzionano le API di KIMI K2 (come ottenere il conteggio degli output token, vedere come funziona l'upload di pdf)
+
    
 
 DOMANDE:
     - Come controllare se il pdf che c'è online sia aggiornato? è possibile che venga cambiato nel tempo?
-    - Abbassare i privilegi dell'utente nel docker
-    - Creazione di un venv nel docker
     - Come ottenere i link dei dataset dal pdf del paper, si potrebbe avere a disposizione solamente la citazione
+    - Documenti creati dal container non disponibili nell'host ( a meno che il volume non sia vuoto), ci interessa avere?
+    - Come gestire il codice (ottenibile da gitingest, https://gitingest.com/)
+    - Qual è la palette di colore da associare ad un progetto del genere? (Blu profondo (#0A3D62 – #1B4F72) - Grigio neutro e grafite (#5A5A5A – #2E2E2E) - Ciano/Teal tecnologico (#1ABC9C – #0E8C82) - Ambra o giallo controllato (#F1C40F – #E2B90A) per alert - Bianco sporco (#F7F7F7) per sfondo al posto del bianco profondo)
+    
+SCORE:
+- Quali parti dello scoring posso essere affidate ad un LLM?
+- Quali parti dello scoring posso fare con regole fisse?
+- Quali parti dello scoring richiedono l'analisi del pdf?
+- Ha senso introdurre penalizzazioni in fase di scoring?
+- Creare una tabella del DB con le info retrivate relative ad ogni metrica di valutazione, lo score assegnato e il relativo peso.
+    In questo modo si sa su che cosa un eventale LLM ha basato il suo giudizio
 
 
+-- Data: Questo criterio valuta la presenza, la disponibilità dei dati utilizzati dati utilizzati dovrebbero essere descritti all'interno del paper, 
+    nella pagina del paper sono solo visibili i link ai dataset. 
+    Forse è plausibile assumere che i dataset siano pubblici se è presente il link. 
+    Per il resto dobbiamo affidarci alla descrizione nel paper per la valutazione
+-- Code: il codice utilizzato dovrebbe essere presente all'interno dell'abstract,
+    ma non so se è una regola ferrea ppure no, nel caso del MICCAI è anche disponibile sul sito.
+    Si potrebbe pensare ad un primo check sul sito, se non è presente passare al pdf. 
+    Se non è presente nemmeno lì possiamo assumere che non sia disponibile.
+    Il codice però non è strettamente necessario per il funzionamento del paper, 
+    come anche indicato dalla conferenza. 
+    Pertanto il codice dovrà rientrare nello scoring solamente se fa parte della riproducibilità.
+    La presenza del solo link non è sufficiente per una buona valutazione del codice siccome la repo potrebbee 
+    essere vuota, incompleta o non funzionante.
+    C'è quindi da analizzare quanto meno il readme,la documentazione, o esempi di funzionamento (colab, container) 
+    resa disponibile nella repo
+-- Annotation: questo criterio valuta le informazioni relative a come sono state eseguite le annotazioni, 
+    il grado di esperienza dei valutatori, e che metriche sono state utilizzate quanto i valutatori sono d'accordo tra loro
+    Tali informazioni si trovano solo all'interno del paper,  LLM per estrazione e lunghezza per valutazione no LLM.
+    Andrebbe anche considerato se c'è un senso logico, solo tramite LLM
+-- Preprocessing: La valutazione si basa su quanto è accurata e documentata. 
+    Queste informazioni che si trova all'interno del paper. LLM per estrazione e lunghezza per valutazione no LLM
+    Andrebbe anche considerato se c'è un senso logico, solo tramite LLM
+-- Evaluation: Informazioni presenti all'interno del paper.
+    Valuta la completezza e la chiarezza della sezione dedicata alla valutazione sperimentale. LLM per estrazione e lunghezza per valutazione no LLM
+    Andrebbe anche considerato se c'è un senso logico, solo tramite LLM
+-- Documentazione: raggruppabile nella valutazione del codice
+-- Licensing and ethical transparency, raggruppabile nei data
+    
+
+
+
+Here’s a direct, clean English translation:
+
+-- Data: This criterion assesses the presence and availability of the data used. The data should be described within the paper; on the paper’s webpage, only the dataset links are visible. It may be reasonable to assume that datasets are public if a link is provided. Beyond that, we must rely on the description in the paper for the evaluation.
+
+-- Code: The code used should be included in the abstract, though I’m not sure this is a strict rule. In the case of MICCAI, it’s also available on the website. One could first check the conference site; if it’s not there, move to the PDF. If it’s not there either, we can assume it’s unavailable.
+The code, however, isn’t strictly required for the paper to function, as the conference itself indicates. Therefore, code should contribute to the scoring only when it is part of reproducibility.
+A link alone isn’t enough for a solid code evaluation, since the repository may be empty, incomplete, or non-functional. So the README, documentation, or available usage examples (Colab, container) in the repo need to be examined at minimum.
+
+-- Annotation: This criterion evaluates information on how annotations were performed, the expertise level of the annotators, which metrics were used, and how much the annotators agreed with one another. These details are found only within the paper. LLMs can be used for extraction; length-based scoring should avoid LLMs. Logical consistency should also be considered, using an LLM only for that part.
+
+-- Preprocessing: The evaluation depends on how accurate and well-documented the preprocessing is. These details are found within the paper. LLMs for extraction, and length-based scoring without LLMs. Logical consistency should also be considered, using an LLM only for that.
+
+-- Evaluation: Information found within the paper. This assesses the completeness and clarity of the experimental evaluation section. LLMs for extraction; length-based scoring without LLMs. Logical consistency should also be considered, using an LLM only for that.
+
+-- Documentation: Can be grouped under code evaluation.
+
+-- Licensing and ethical transparency: Can be grouped under data.
