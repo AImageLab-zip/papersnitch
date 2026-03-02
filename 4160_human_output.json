@@ -1,0 +1,20 @@
+{
+  "paper_analysis_by_category": {
+    "models": "4/7",
+    "datasets": "1/4",
+    "experiments": "6/9"
+  },
+  "code_analysis": {
+    "score_breakdown": {
+      "code_completeness": 100.0,
+      "dependencies": 70.0,
+      "artifacts": 100.0,
+      "dataset_splits": 33.3,
+      "documentation": 100.0
+    },
+    "reproducibility_score": 85.6,
+    "recommendations": [
+      "Document random seeds and parameters for reproducible results"
+    ]
+  }
+}

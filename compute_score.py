@@ -399,6 +399,49 @@ def compute_reproducibility_score(
 
 
 # ============================================================================
+# Analysis of Paper and Dataset Criteria
+# ============================================================================
+
+
+def analyze_criteria_by_category(
+    criteria_list: List[dict],
+) -> Dict[str, Dict[str, int]]:
+    """
+    Analyze paper_analysis or dataset_analysis criteria grouped by category.
+
+    Args:
+        criteria_list: List of criteria dictionaries with 'category' and 'present' fields
+
+    Returns:
+        Dictionary with category as key and dict with 'present_count', 'total_count' as values
+    """
+    category_stats = {}
+
+    for criterion in criteria_list:
+        category = criterion.get("category", "unknown")
+        present = criterion.get("present", False)
+
+        if category not in category_stats:
+            category_stats[category] = {"present_count": 0, "total_count": 0}
+
+        category_stats[category]["total_count"] += 1
+        if present:
+            category_stats[category]["present_count"] += 1
+
+    return category_stats
+
+
+def format_category_stats(category_stats: Dict[str, Dict[str, int]]) -> Dict[str, str]:
+    """Format category statistics as readable strings."""
+    formatted = {}
+    for category, stats in category_stats.items():
+        present = stats["present_count"]
+        total = stats["total_count"]
+        formatted[category] = f"{present}/{total}"
+    return formatted
+
+
+# ============================================================================
 # Main Script Functions
 # ============================================================================
 
@@ -417,10 +460,6 @@ def extract_code_analysis(data: dict) -> Optional[dict]:
     Handles both direct code_analysis format and nested paper format.
     """
     # Check if data has a paper name as top-level key
-    for keys, values in data.items():
-        print(
-            f"Top-level key: {keys} (type: {type(keys)}) - value type: {type(values)}"
-        )
     if len(data) == 1 and isinstance(list(data.values())[0], dict):
         paper_data = list(data.values())[0]
         if "code_analysis" in paper_data:
@@ -550,18 +589,83 @@ def main():
             documentation=documentation,
         )
 
+        # Analyze paper_analysis and dataset_analysis if present
+        paper_stats = None
+        dataset_stats = None
+
+        if "paper_analysis" in data and isinstance(data["paper_analysis"], list):
+            paper_criteria = data["paper_analysis"]
+            paper_stats = analyze_criteria_by_category(paper_criteria)
+
+        if "dataset_analysis" in data and isinstance(data["dataset_analysis"], list):
+            dataset_criteria = data["dataset_analysis"]
+            dataset_stats = analyze_criteria_by_category(dataset_criteria)
+
         # Print results
         print("\n" + "=" * 60)
         print("REPRODUCIBILITY SCORE COMPUTATION RESULTS")
         print("=" * 60)
 
-        print(f"\nOverall Reproducibility Score: {score}/100")
+        # Print paper analysis statistics FIRST
+        if paper_stats:
+            print("\nPaper Analysis (Criteria Present by Category):")
+            print("-" * 60)
+            formatted_paper = format_category_stats(paper_stats)
+            # Custom order for paper analysis
+            paper_order = ["models", "datasets", "experiments"]
+            for category in paper_order:
+                if category in formatted_paper:
+                    stat_str = formatted_paper[category]
+                    category_name = category.replace("_", " ").title()
+                    print(f"  {category_name:.<40} {stat_str:>10}")
+            # Print any remaining categories not in the predefined order
+            for category, stat_str in sorted(formatted_paper.items()):
+                if category not in paper_order:
+                    category_name = category.replace("_", " ").title()
+                    print(f"  {category_name:.<40} {stat_str:>10}")
 
-        print("\nScore Breakdown:")
+        # Print code analysis SECOND
+        print("\nScore Breakdown (Code Analysis):")
         print("-" * 60)
+        # Custom order for code analysis
+        code_order = [
+            "code_completeness",
+            "dependencies",
+            "artifacts",
+            "dataset_splits",
+            "documentation",
+        ]
+        for component in code_order:
+            if component in breakdown:
+                value = breakdown[component]
+                component_name = component.replace("_", " ").title()
+                print(f"  {component_name:.<40} {value:>6.1f}/100")
+        # Print any remaining components not in the predefined order
         for component, value in breakdown.items():
-            component_name = component.replace("_", " ").title()
-            print(f"  {component_name:.<40} {value:>6.1f}/100")
+            if component not in code_order:
+                component_name = component.replace("_", " ").title()
+                print(f"  {component_name:.<40} {value:>6.1f}/100")
+
+        # Print reproducibility score after breakdown
+        print(f"\n  {'Reproducibility Score':.<40} {score:>6.1f}/100")
+
+        # Print dataset analysis statistics LAST
+        if dataset_stats:
+            print("\nDataset Analysis (Criteria Present by Category):")
+            print("-" * 60)
+            formatted_dataset = format_category_stats(dataset_stats)
+            # Custom order for dataset analysis
+            dataset_order = ["data_collection", "annotation", "ethics_availability"]
+            for category in dataset_order:
+                if category in formatted_dataset:
+                    stat_str = formatted_dataset[category]
+                    category_name = category.replace("_", " ").title()
+                    print(f"  {category_name:.<40} {stat_str:>10}")
+            # Print any remaining categories not in the predefined order
+            for category, stat_str in sorted(formatted_dataset.items()):
+                if category not in dataset_order:
+                    category_name = category.replace("_", " ").title()
+                    print(f"  {category_name:.<40} {stat_str:>10}")
 
         if recommendations:
             print("\nRecommendations for Improvement:")
@@ -572,11 +676,26 @@ def main():
         print("\n" + "=" * 60)
 
         # Also output as JSON for easy parsing
-        output_data = {
-            "reproducibility_score": score,
+        output_data = {}
+
+        # Add paper analysis first if available
+        if paper_stats:
+            output_data["paper_analysis_by_category"] = format_category_stats(
+                paper_stats
+            )
+
+        # Add code analysis
+        output_data["code_analysis"] = {
             "score_breakdown": breakdown,
+            "reproducibility_score": score,
             "recommendations": recommendations,
         }
+
+        # Add dataset analysis last if available
+        if dataset_stats:
+            output_data["dataset_analysis_by_category"] = format_category_stats(
+                dataset_stats
+            )
 
         output_file = input_file.replace(".json", "_output.json")
         with open(output_file, "w", encoding="utf-8") as f:

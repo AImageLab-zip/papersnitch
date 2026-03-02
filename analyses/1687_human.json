@@ -1,0 +1,413 @@
+{
+  "paper_analysis": [
+    {
+      "criterion_id": "mathematical_description",
+      "criterion_number": 1,
+      "criterion_name": "Mathematical Description",
+      "category": "models",
+      "present": true,
+      "confidence": 0.8,
+      "evidence_text": "Relation prediction consists of two tasks: (1) detecting whether a relation exists (e ≥0.5), and (2) classifying the relation type. Following [20], we employ: A 2-layer model for binary relation existence prediction (fexistence), followed by a 3-layer multi-label classification model (fclassification) for relation type prediction.",
+      "page_reference": "Semantic Relation Prediction",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "assumptions_stated",
+      "criterion_number": 2,
+      "criterion_name": "Model Assumptions",
+      "category": "models",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not explicitly state any model assumptions such as data distribution, independence assumptions, or convergence conditions. The focus is on model performance and configuration rather than underlying assumptions.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "software_framework",
+      "criterion_number": 3,
+      "criterion_name": "Software Framework",
+      "category": "models",
+      "present": false,
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "hyperparameters_reported",
+      "criterion_number": 4,
+      "criterion_name": "Hyperparameters Reported",
+      "category": "models",
+      "present": false,
+      "confidence": 0.7,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not include specific hyperparameters such as learning rate, batch size, or optimizer settings. The focus is on model performance and configuration rather than detailed hyperparameter reporting.",
+      "importance": "BOH"
+    },
+    {
+      "criterion_id": "hyperparameter_selection",
+      "criterion_number": 5,
+      "criterion_name": "Hyperparameter Selection Method",
+      "category": "models",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention any method for selecting hyperparameters such as grid search, random search, or validation set tuning.",
+      "importance": "BOH"
+    },
+    {
+      "criterion_id": "baseline_implementation",
+      "criterion_number": 6,
+      "criterion_name": "Baseline Implementation",
+      "category": "models",
+      "present": true,
+      "expected_text": [
+        "We use a 3-layer GATv2 [2] model as our GNN baseline.",
+        "Wefine-tuneaLlama3.23BmodelforourdownstreamtasksusingQLora and its recommended parameters"
+      ],
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "sensitivity_analysis",
+      "criterion_number": 7,
+      "criterion_name": "Sensitivity Analysis",
+      "category": "models",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "Interestingly, longer temporal windows sampled with lower resolution (50 s at 1 fps) result in lower accuracy, suggesting...",
+      "page_reference": "RESULTS_&_DISCUSSION",
+      "notes": "The paper discusses the impact of different temporal window sizes and sampling rates on model performance, which is a form of sensitivity analysis.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "dataset_statistics",
+      "criterion_number": 8,
+      "criterion_name": "Dataset Statistics",
+      "category": "datasets",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "We sample and annotate the 50 videos in our dataset at a temporal resolution of 5 fps, making CAT-SG the largest dataset among comparable efforts for detailed surgical scene understanding (Table2).",
+      "page_reference": "Annotations section",
+      "notes": "The paper provides information on dataset size, annotation process, and comparison with other datasets. However, details on class distribution, patient demographics, and imaging parameters are not explicitly mentioned.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "dataset_splits",
+      "criterion_number": 9,
+      "criterion_name": "Dataset Splits",
+      "category": "datasets",
+      "present": false,
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "dataset_availability",
+      "criterion_number": 10,
+      "criterion_name": "Dataset Availability",
+      "category": "datasets",
+      "present": true,
+      "confidence": 1,
+      "evidence_text": "The dataset is available at github.com/felixholm/CAT-SG.",
+      "page_reference": "ABSTRACT",
+      "notes": "The paper provides a direct link to access the CAT-SG dataset, fulfilling the dataset availability criterion.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "dataset_ethics",
+      "criterion_number": 11,
+      "criterion_name": "Ethics Approval",
+      "category": "datasets",
+      "present": true,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention ethics approval or specify that no approval was needed. This is important for datasets involving human subjects or medical data.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "number_of_runs",
+      "criterion_number": 12,
+      "criterion_name": "Number of Runs",
+      "category": "experiments",
+      "present": false,
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "results_with_variance",
+      "criterion_number": 13,
+      "criterion_name": "Results with Variance",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "GATv2 | 10 s (5 fps) | ✓ | 68.75 ± 4.11 48.40 ± 1.72\nGATv2 | 50 s (1 fps) | ✓ | 66.34 ± 1.38 41.31 ± 1.83\nGATv2 | 10 s (5 fps) | ✗ | 64.48 ± 1.15 44.52 ± 1.58",
+      "page_reference": "TABLE_5_",
+      "notes": null,
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "statistical_significance",
+      "criterion_number": 14,
+      "criterion_name": "Statistical Significance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": "No statistical tests such as p-values or t-tests are mentioned in the provided sections.",
+      "page_reference": "TABLE_5_, TABLE_3_, RESULTS_&_DISCUSSION",
+      "notes": "The paper provides accuracy and F1 scores but does not mention statistical tests like p-values or t-tests to validate performance claims.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "evaluation_metrics",
+      "criterion_number": 15,
+      "criterion_name": "Evaluation Metrics",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.8,
+      "evidence_text": "Table 4 . Surgical Workflow Recognition Results | Temporal Window | Semantic Relations | Spatial Encoding Accuracy F1",
+      "page_reference": "TABLE_4_",
+      "notes": "The paper mentions accuracy and F1 scores but does not provide definitions or formulas for these metrics. Clear definitions and formulas are necessary for reproducibility.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "runtime_reported",
+      "criterion_number": 16,
+      "criterion_name": "Runtime Reported",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention any details about the training or inference time for the models used in the experiments. The focus is on performance metrics like accuracy and F1 scores.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "memory_footprint",
+      "criterion_number": 17,
+      "criterion_name": "Memory Footprint",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The paper does not specify GPU memory or RAM requirements for running the methods described. The sections provided focus on experimental results and configurations but do not mention memory usage.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "failure_analysis",
+      "criterion_number": 18,
+      "criterion_name": "Failure Analysis",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "Surprisingly, adding temporality to ORacle (ORacleSVT) leads to a performance drop. We hypothesize this is due to ORacle aggregating its predictions over time, which can propagate mispredictions, thereby degrading overall performance.",
+      "page_reference": "RESULTS_&_DISCUSSION",
+      "notes": "The paper discusses a specific scenario where the method underperforms, providing a hypothesis for the observed failure, which satisfies the criterion.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "clinical_significance",
+      "criterion_number": 19,
+      "criterion_name": "Clinical Significance",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "Advancements in machine learning and computer vision are transforming computer-assisted surgery, enabling precise planning, real-time decision support, and automated workflow analysis.",
+      "page_reference": "Introduction",
+      "notes": "The paper discusses the potential impact of their work on improving surgical workflow analysis, which is clinically significant for enhancing surgical outcomes.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "computing_infrastructure",
+      "criterion_number": 20,
+      "criterion_name": "Computing Infrastructure",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not contain any information about hardware specifications such as GPU model, CPU, number of GPUs, or memory. This information is crucial for reproducibility in experimental papers.",
+      "importance": "OK"
+    }
+  ],
+  "code_analysis": {
+    "methodology": {
+      "methodology_type": "deep_learning",
+      "requires_training": true,
+      "requires_datasets": true,
+      "requires_splits": true,
+      "methodology_notes": "The research methodology involves the development and evaluation of a deep learning model, specifically a scene graph generation model named CatSGG, for understanding cataract surgery workflows. The methodology is centered around the creation and use of the CAT-SG dataset, which provides detailed annotations of surgical tool-tissue interactions, procedural variations, and temporal dependencies. The dataset is derived from the CATARACTS dataset and includes over 1.8 million annotated relations across 50 high-resolution videos. The research requires training the CatSGG model on this dataset, which involves splitting the data into training, validation, and test sets to evaluate the model's performance on tasks such as scene graph generation, surgical workflow recognition, and surgical technique recognition. The methodology emphasizes the importance of fine-grained annotations and temporal resolution to capture precise surgical dynamics, which are critical for the reproducibility and effectiveness of the model in real-world applications. The use of pretrained video backbones and spatio-temporal attention mechanisms are key components of the model's architecture, contributing to its ability to outperform state-of-the-art methods in generating structured surgical representations."
+    },
+    "structure": {
+      "is_standalone": false,
+      "base_repository": "CATARACTS dataset",
+      "has_requirements": false,
+      "requirements_match_imports": null,
+      "requirements_issues": [
+        "The repository does not include a requirements.txt file or any equivalent documentation specifying the dependencies needed to run the code.",
+        "The code imports libraries such as torch and torch_geometric, but without a requirements file, users may face challenges in setting up the environment correctly.",
+        "Potential issues with version compatibility of libraries like PyTorch and PyTorch Geometric are not addressed, which could lead to runtime errors if incompatible versions are used."
+      ]
+    },
+    "components": {
+      "has_training_code": false,
+      "training_code_paths": [],
+      "has_evaluation_code": false,
+      "evaluation_code_paths": [],
+      "has_documented_commands": false,
+      "command_documentation_location": "README.md"
+    },
+    "artifacts": {
+      "has_checkpoints": false,
+      "checkpoint_locations": [],
+      "has_dataset_links": true,
+      "dataset_coverage": "full",
+      "dataset_links": [
+        {
+          "name": "CAT-SG",
+          "url": "https://github.com/felixholm/CAT-SG"
+        },
+        {
+          "name": "CATARACTS",
+          "url": "https://ieee-dataport.org/open-access/cataracts"
+        },
+        {
+          "name": "CaDIS",
+          "url": "https://cataracts.grand-challenge.org/CaDIS/"
+        }
+      ]
+    },
+    "dataset_splits": {
+      "splits_specified": true,
+      "splits_provided": true,
+      "random_seeds_documented": false,
+      "splits_notes": "The dataset splits are specified in the README.md file, which mentions that the dataset is divided into train, validation, and test sets. The dataset structure section describes how the annotation files are organized into 'train', 'val', and 'test' directories, reflecting the CATARACTS dataset's train/test/val split. The 'splits' subdirectory contains a copy of the dataset set up for efficient processing, with further separation into subdirectories for individual test and validation videos. However, there is no documentation of random seeds used for creating these splits, which could affect the replicability of experiments if the splits were generated randomly. The splits appear to be predefined and consistent with the original CATARACTS dataset, suggesting that they are not randomly generated for each run, but this is not explicitly confirmed in the documentation."
+    },
+    "documentation": {
+      "has_readme": true,
+      "has_results_table": true,
+      "has_reproduction_commands": false,
+      "documentation_notes": "The documentation for the CAT-SG dataset and associated code is comprehensive and well-structured. The README.md file provides a clear overview of the dataset, including its purpose, key features, and detailed statistics. It outlines the tasks supported by the dataset, such as surgical scene graph generation, workflow recognition, and technique recognition. The README also includes detailed instructions on how to download and set up the dataset, along with a description of the dataset's structure and annotation file format. Additionally, the README contains benchmark results tables for various tasks, which help users understand the performance of different models on the dataset. The inclusion of reproduction commands, such as how to clone the repository and load the data using PyTorch Geometric, further aids in the reproducibility of results. Overall, the documentation is thorough and facilitates ease of use and understanding for researchers and developers working with the CAT-SG dataset."
+    }
+  },
+  "dataset_analysis": [
+    {
+      "criterion_id": "data_collection_described",
+      "criterion_number": 1,
+      "criterion_name": "Data Collection Process",
+      "category": "data_collection",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "dataset consists of 50 high-resolution videos of cataract surgeries, collected at Brest University Hospital. Each video captures a complete surgical procedure with a duration of 11 minutes on average",
+      "page_reference": "CATARACTS section",
+      "notes": "The paper provides information on the number of videos, their source (Brest University Hospital), and average duration, but lacks details on recruitment strategy and sampling methodology.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "acquisition_parameters",
+      "criterion_number": 2,
+      "criterion_name": "Acquisition Parameters",
+      "category": "data_collection",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not contain information about device types, imaging modalities, scanner specifications, or detailed acquisition parameters such as resolution or field of view.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "study_cohort",
+      "criterion_number": 3,
+      "criterion_name": "Study Cohort Description",
+      "category": "data_collection",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": "The dataset consists of 50 high-resolution videos of cataract surgeries, collected at Brest University Hospital.",
+      "page_reference": "CATARACTS section",
+      "notes": "The paper mentions the source of the videos but lacks detailed information on patient demographics, inclusion/exclusion criteria, or cohort stratification.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "annotation_protocol",
+      "criterion_number": 4,
+      "criterion_name": "Annotation Protocol",
+      "category": "annotation",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "The scene graph annotations were created through a manual labeling process conducted by 9 trained student annotators...followed by an iterative expert review process to verify the validity of our labels.",
+      "page_reference": "Annotations section",
+      "notes": "The paper describes the annotation process, including the use of trained annotators, expert review, and the types of interactions classified. However, specific tools used are not mentioned.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "annotator_details",
+      "criterion_number": 5,
+      "criterion_name": "Annotator Qualifications",
+      "category": "annotation",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "The scene graph annotations were created through a manual labeling process conducted by 9 trained student annotators.",
+      "page_reference": "Annotations section",
+      "notes": "The paper mentions that the annotators were trained students, but does not specify their field of study or the details of their training. However, the iterative expert review process suggests some level of quality control.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "inter_rater_agreement",
+      "criterion_number": 6,
+      "criterion_name": "Inter-Rater Agreement",
+      "category": "annotation",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention any inter-rater agreement metrics such as Cohen's kappa or percentage agreement. This is crucial for understanding the reliability of the annotations in the dataset.",
+      "importance": "BOH"
+    },
+    {
+      "criterion_id": "quality_control",
+      "criterion_number": 7,
+      "criterion_name": "Quality Control",
+      "category": "annotation",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "The annotators reviewed the videos and interactively marked each instance of a surgical tool interacting with an anatomical structure, followed by an iterative expert review process to verify the validity of our labels.",
+      "page_reference": "Annotations section",
+      "notes": "The paper describes an expert review process to ensure annotation accuracy, which is a key aspect of quality control.",
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "ethics_approval",
+      "criterion_number": 8,
+      "criterion_name": "Ethics Approval",
+      "category": "ethics_availability",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention IRB/ethics approval, informed consent, or a statement that approval was not required. The dataset involves surgical videos, which typically require ethical considerations.",
+      "importance": "BOH"
+    },
+    {
+      "criterion_id": "data_availability",
+      "criterion_number": 9,
+      "criterion_name": "Data Availability Statement",
+      "category": "ethics_availability",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "The dataset is available at github.com/felixholm/CAT-SG.",
+      "page_reference": "Abstract",
+      "notes": null,
+      "importance": "OK"
+    },
+    {
+      "criterion_id": "data_license",
+      "criterion_number": 10,
+      "criterion_name": "Usage License",
+      "category": "ethics_availability",
+      "present": true,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "in the github",
+      "importance": "OK"
+    }
+  ]
+}

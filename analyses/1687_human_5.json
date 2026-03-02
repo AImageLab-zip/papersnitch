@@ -1,0 +1,441 @@
+{
+  "dataset_analysis": [
+    {
+      "criterion_id": "data_collection_described",
+      "criterion_number": 1,
+      "criterion_name": "Data Collection Process",
+      "category": "data_collection",
+      "present": false,
+      "confidence": 0.37,
+      "evidence_text": "\"CAT-SG ... extends the publicly available CATARACTS dataset ... The CATARACTS dataset consists of 50 high-resolution videos of cataract surgeries, collected at Brest University Hospital. Each video captures a complete surgical procedure with a duration of 11 minutes on average (min: 6 min, max: 40 min).\"",
+      "page_reference": "CATARACTS section",
+      "notes": "Paper mentions source dataset (CATARACTS), institution (Brest University Hospital), video counts and durations. However, it lacks a complete description of the data collection process for CAT-SG: no recruitment strategy, time period, or sampling methodology. Details for CATARACTS recruitment/sampling are also not provided here.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "acquisition_parameters",
+      "criterion_number": 2,
+      "criterion_name": "Acquisition Parameters",
+      "category": "data_collection",
+      "present": false,
+      "confidence": 0.22,
+      "evidence_text": null,
+      "page_reference": "Provided excerpts (Tables 2, 4, 5)",
+      "notes": "The provided sections include dataset size, classes, and evaluation settings (fps windows), but do not describe imaging device types, modalities, scanner specifications, or acquisition parameters such as resolution or field of view. Such details may exist elsewhere in the paper, but are not present in the given excerpts.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "study_cohort",
+      "criterion_number": 3,
+      "criterion_name": "Study Cohort Description",
+      "category": "data_collection",
+      "present": true,
+      "confidence": 0.54,
+      "evidence_text": "\"The CATARACTS dataset consists of 50 high-resolution videos of cataract surgeries, collected at Brest University Hospital. Each video captures a complete surgical procedure with a duration of 11 minutes on average (min: 6 min, max: 40 min).\"",
+      "page_reference": "CATARACTS section",
+      "notes": "While the paper states number of videos, source hospital, and duration, it does not provide patient/subject demographics, inclusion/exclusion criteria, or clinical characteristics, nor surgeon info. No cohort stratification is described.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "annotation_protocol",
+      "criterion_number": 4,
+      "criterion_name": "Annotation Protocol",
+      "category": "annotation",
+      "present": true,
+      "confidence": 0.63,
+      "evidence_text": "\"The scene graph annotations were created through a manual labeling process conducted by 9 trained student annotators. The annotators reviewed the videos and interactively marked each instance of a surgical tool interacting with an anatomical structure, followed by an iterative expert review process to verify the validity of our labels... The interactions are classified into 8 categories shown in Table1... We sample and annotate the 50 videos... at 5 fps... We also use pseudo-labelled segmentation masks based on the CaDIS dataset to provide a grounding to each object... (position, size, bounding box).\"",
+      "page_reference": "Annotations section; Table 1",
+      "notes": "They specify annotator pool, manual interactive labeling, expert review, relation categories, objects list, 5 fps sampling, and use of pseudo-labeled segmentation masks for grounding. However, detailed guidelines/instructions or tools used are not described. Still sufficient partial protocol present.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "annotator_details",
+      "criterion_number": 5,
+      "criterion_name": "Annotator Qualifications",
+      "category": "annotation",
+      "present": true,
+      "confidence": 0.7,
+      "evidence_text": "\"The scene graph annotations were created through a manual labeling process conducted by 9 trained student annotators... followed by an iterative expert review process to verify the validity of our labels.\"",
+      "page_reference": "Annotations section",
+      "notes": "They state there were 9 trained student annotators and mention expert review, but do not specify annotator qualifications (e.g., backgrounds, expertise level), the nature of their training, or the annotation instructions. Thus, the criterion is only partially addressed and not fully satisfied.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "inter_rater_agreement",
+      "criterion_number": 6,
+      "criterion_name": "Inter-Rater Agreement",
+      "category": "annotation",
+      "present": false,
+      "confidence": 0.4,
+      "evidence_text": "No mention of inter-annotator agreement metrics (e.g., Cohen's kappa, ICC, Dice, or percentage agreement) is found in the provided sections (Tables 1, 3, 4).",
+      "page_reference": "Tables 1, 3, and 4; provided excerpts",
+      "notes": "The supplied excerpts focus on relations annotated and model performance; they do not report any agreement statistics between annotators. If the full paper includes an annotation protocol section elsewhere, it might contain this info, but it is not present in the given text.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "quality_control",
+      "criterion_number": 7,
+      "criterion_name": "Quality Control",
+      "category": "annotation",
+      "present": true,
+      "confidence": 0.66,
+      "evidence_text": "\"The scene graph annotations were created through a manual labeling process conducted by 9 trained student annotators... followed by an iterative expert review process to verify the validity of our labels.\"",
+      "page_reference": "Annotations section",
+      "notes": "Paper mentions trained annotators and an iterative expert review to verify labels, indicating a review/validation process. However, it lacks details on inter-annotator agreement, how disagreements were handled, or specific QC metrics/protocols.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "ethics_approval",
+      "criterion_number": 8,
+      "criterion_name": "Ethics Approval",
+      "category": "ethics_availability",
+      "present": false,
+      "confidence": 0.25,
+      "evidence_text": "No mention of IRB/ethics approval, informed consent, or statement that approval was not required is found in the provided sections.",
+      "page_reference": "Provided excerpts (Table 1, Table 2, CATARACTS section)",
+      "notes": "The dataset involves human surgical videos collected at a hospital; ethics/consent details are crucial. They may exist elsewhere in the paper, but not in the given sections.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "data_availability",
+      "criterion_number": 9,
+      "criterion_name": "Data Availability Statement",
+      "category": "ethics_availability",
+      "present": true,
+      "confidence": 0.77,
+      "evidence_text": "The dataset is available at github.com/felixholm/CAT-SG.",
+      "page_reference": "Abstract",
+      "notes": "Provides a public URL indicating access location. No detailed access conditions, timeline, or request procedure mentioned in provided sections, but basic availability statement is present.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "data_license",
+      "criterion_number": 10,
+      "criterion_name": "Usage License",
+      "category": "ethics_availability",
+      "present": false,
+      "confidence": 0.39,
+      "evidence_text": "No explicit usage license, terms of use, or restrictions are mentioned in the provided sections.",
+      "page_reference": "Provided sections (Table 1, Table 2, Annotations/Use Cases)",
+      "notes": "The excerpt mentions dataset release of masks and use cases but does not state any license (e.g., CC-BY) or permitted/restricted uses. Full paper may include this elsewhere, but it is absent from the given text.",
+      "importance": "critical"
+    }
+  ],
+  "paper_analysis": [
+    {
+      "criterion_id": "mathematical_description",
+      "criterion_number": 1,
+      "criterion_name": "Mathematical Description",
+      "category": "models",
+      "present": true,
+      "confidence": 0.38,
+      "evidence_text": "We present a novel scene graph generation model, CatSGG, which outperforms current methods... The inclusion of longer-term temporal context in CatSGG+ further improves performance... We propose an annotation-efficient solution... building upon Mask2Former while incorporating domain-specific prior knowledge from Watch&Learn... replace the standard backbone of M2F with a finetuned VideoSwin...",
+      "page_reference": "Abstract; Results & Discussion; Annotation Efficient Entity Localization",
+      "notes": "The provided sections describe models conceptually and by components but do not provide equations, loss functions, or formal computational steps. Without methods/math details, a full mathematical description is not evident.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "assumptions_stated",
+      "criterion_number": 2,
+      "criterion_name": "Model Assumptions",
+      "category": "models",
+      "present": false,
+      "confidence": 0.37,
+      "evidence_text": "From preliminary experiments we find that training M2F with the pretrained VideoSwin backbone ... by subsampling the training data to 18 chunks per training video... Since semantic relations are relatively infrequent, we apply sampling constraints... We apply a 0.5 threshold to filter predictions...",
+      "page_reference": "Experiments; Results & Discussion; Table 3",
+      "notes": "The provided sections describe configurations, heuristics, and training choices but do not explicitly state model assumptions such as data distribution, independence, stationarity, or convergence conditions. No explicit assumptions about relations sparsity beyond practical sampling notes are formalized as model assumptions.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "software_framework",
+      "criterion_number": 3,
+      "criterion_name": "Software Framework",
+      "category": "models",
+      "present": false,
+      "confidence": 0.3,
+      "evidence_text": "No explicit mention of software frameworks (e.g., PyTorch, TensorFlow, scikit-learn) or their versions is found in the provided excerpts.",
+      "page_reference": "Provided sections: Tables 4-5, Annotation Efficient Entity Localization",
+      "notes": "While model architectures (Mask2Former, VideoSwin, VALOR, BERT, GATv2, Llama 3.2 3B) are mentioned, there is no explicit statement of the software framework or version used to implement them in the given text.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "hyperparameters_reported",
+      "criterion_number": 4,
+      "criterion_name": "Hyperparameters Reported",
+      "category": "models",
+      "present": false,
+      "confidence": 0.35,
+      "evidence_text": "Using this configuration we train M2F on the 29 classes... subsampling the training data to 18 chunks per training video... We apply a 0.5 threshold to filter predictions from both the relation existence and classification models... GATv2 | 10 s (5 fps)... 50 s (1 fps)",
+      "page_reference": "Experiments; Table 5; Results & Discussion",
+      "notes": "Only a few settings (chunking strategy, threshold, temporal window/fps) are mentioned. No learning rates, batch sizes, optimizer, training epochs, or architecture/hyperparameter details are provided in the provided sections. Thus comprehensive hyperparameters are not reported.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "hyperparameter_selection",
+      "criterion_number": 5,
+      "criterion_name": "Hyperparameter Selection Method",
+      "category": "models",
+      "present": false,
+      "confidence": 0.41,
+      "evidence_text": "From preliminary experiments we find that training M2F with the pretrained VideoSwin backbone ... by subsampling the training data to 18 chunks per training video. ... We apply a 0.5 threshold to filter predictions from both the relation existence and classification models.",
+      "page_reference": "Experiments section",
+      "notes": "The paper mentions some chosen settings (e.g., 18 chunks, 0.5 threshold) but does not describe how hyperparameters were selected (e.g., validation set tuning, grid/random search). No systematic hyperparameter selection method is reported for CatSGG, ORacle variants, or GATv2.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "baseline_implementation",
+      "criterion_number": 6,
+      "criterion_name": "Baseline Implementation",
+      "category": "models",
+      "present": false,
+      "confidence": 0.47,
+      "evidence_text": "“Holm et al. [10] …” and “ORacle: We use ORacle as a benchmark… We train and evaluate ORacle's single view variant, both with and without temporality (denoted as ORacleSV … [truncated]”",
+      "page_reference": "Table 4; Experiments section (CatSGG / ORacle paragraph)",
+      "notes": "The paper names baselines (Holm et al., ORacle) and shows results, but provides insufficient implementation/tuning details (e.g., hyperparameters, training epochs, input preprocessing, sampling/fps for baselines, how temporality is modeled, or how fairness was ensured). The ORacle description is cut/truncated and lacks specifics. Thus, fair-comparison implementation details are not adequately described in the provided sections.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "sensitivity_analysis",
+      "criterion_number": 7,
+      "criterion_name": "Sensitivity Analysis",
+      "category": "models",
+      "present": true,
+      "confidence": 0.7,
+      "evidence_text": "“Surgical Technique Recognition… our GATv2 model, utilizing temporal graphs sampled at 5 fps, achieves the highest… Interestingly, longer temporal windows sampled with lower resolution (50 s at 1 fps) result in lower accuracy…” and Table 5 compares 10 s (5 fps) vs 50 s (1 fps) and with/without spatial features.",
+      "page_reference": "Results & Discussion; Table 5",
+      "notes": "They vary key design choices (temporal window, sampling rate, and spatial features) and report performance impacts, constituting an ablation/sensitivity analysis. More comprehensive sweeps would strengthen it, but criterion is met.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "dataset_statistics",
+      "criterion_number": 8,
+      "criterion_name": "Dataset Statistics",
+      "category": "datasets",
+      "present": true,
+      "confidence": 0.66,
+      "evidence_text": "“We sample and annotate the 50 videos in our dataset at a temporal resolution of 5 fps… The following 29 objects were considered for annotations… The interactions are classified into 8 categories shown in Table1.” “Table 2 . Size of comparable datasets and CAT-SG… CAT-SG | 50 | 11 min | 164,162 | 29 | 9 | 1,811,252”",
+      "page_reference": "Annotations section; Table 2",
+      "notes": "They report number of videos, average duration, total annotated frames, number of objects (29), relation types (8–9 noted; slight inconsistency), and total relations (1,811,252). Demographics and imaging parameters are not provided, but core dataset size and class distributions are given sufficiently for this criterion.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_splits",
+      "criterion_number": 9,
+      "criterion_name": "Dataset Splits",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.38,
+      "evidence_text": "The provided sections describe annotation process, objects, sampling at 5 fps, and report results in Table 3, but do not mention any train/validation/test split details or cross-validation folds.",
+      "page_reference": "Annotations section; Table 3",
+      "notes": "Without explicit mention of how the 50 videos are divided into train/val/test (or CV folds), the dataset split criterion is not satisfied in the provided text. If elsewhere in the paper the split is given, it was not included here.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_availability",
+      "criterion_number": 10,
+      "criterion_name": "Dataset Availability",
+      "category": "datasets",
+      "present": true,
+      "confidence": 0.85,
+      "evidence_text": "\"The dataset is available at github.com/felixholm/CAT-SG.\"",
+      "page_reference": "Abstract",
+      "notes": "They also state CAT-SG extends the publicly available CATARACTS dataset. A direct access URL is provided for CAT-SG on GitHub.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_ethics",
+      "criterion_number": 11,
+      "criterion_name": "Ethics Approval",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.24,
+      "evidence_text": null,
+      "page_reference": "Provided excerpts (tables) do not include ethics statements",
+      "notes": "The supplied sections only include dataset statistics and results tables; no mention of IRB/ethics approval or a statement that approval was not required. Cannot confirm satisfaction without access to methods/ethics sections.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "number_of_runs",
+      "criterion_number": 12,
+      "criterion_name": "Number of Runs",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.72,
+      "evidence_text": "GATv2 | 10 s (5 fps) | ✓ | 68.75 ± 4.11 48.40 ± 1.72\nGATv2 | 50 s (1 fps) | ✓ | 66.34 ± 1.38 41.31 ± 1.83\nGATv2 | 10 s (5 fps) | ✗ | 64.48 ± 1.15 44.52 ± 1.58",
+      "page_reference": "Table 5: Surgical Technique Recognition Results",
+      "notes": "The presence of mean ± std suggests multiple runs; however, the exact number of runs is not explicitly stated in the provided excerpts. If elsewhere the paper specifies n (e.g., 3 or 5 seeds/folds), that would strengthen this. Based only on the given sections, we infer multiple runs but lack explicit count.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "results_with_variance",
+      "criterion_number": 13,
+      "criterion_name": "Results with Variance",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.84,
+      "evidence_text": "GATv2 | 10 s (5 fps) | ✓ | 68.75 ± 4.11 48.40 ± 1.72\nGATv2 | 50 s (1 fps) | ✓ | 66.34 ± 1.38 41.31 ± 1.83\nGATv2 | 10 s (5 fps) | ✗ | 64.48 ± 1.15 44.52 ± 1.58",
+      "page_reference": "Table 5: Surgical Technique Recognition Results",
+      "notes": "Table 5 reports mean ± standard deviation for Accuracy and F1 across configurations, satisfying variance reporting across runs or folds. Other tables shown do not include variance, but at least one main result table does.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "statistical_significance",
+      "criterion_number": 14,
+      "criterion_name": "Statistical Significance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.7,
+      "evidence_text": "Tables report means with ± values (e.g., “68.75 ± 4.11”) but no mention of statistical tests (t-test, p-values, Wilcoxon). Results & Discussion states performance differences (e.g., “outperforms … by over 8 percentage points”) without statistical testing.",
+      "page_reference": "Table 5; Results & Discussion",
+      "notes": "While variability is reported (±), there is no explicit statistical hypothesis testing or p-values/confidence intervals to support claims of superiority.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "evaluation_metrics",
+      "criterion_number": 15,
+      "criterion_name": "Evaluation Metrics",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.47,
+      "evidence_text": "As shown in Table4, introducing semantic relations leads to improvements in both accuracy and F1... Table 4 . Surgical Workflow Recognition Results ... Accuracy F1",
+      "page_reference": "Results & Discussion; Table 4",
+      "notes": "Metrics (Accuracy, F1, Macro-F1) are mentioned and reported, but no clear definitions or formulas (e.g., Dice, IoU, AUC, sensitivity, specificity) are provided in the provided sections. Without explicit definitions or formulas, the criterion is not satisfied.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "runtime_reported",
+      "criterion_number": 16,
+      "criterion_name": "Runtime Reported",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.4,
+      "evidence_text": "No explicit mentions of training or inference time, throughput, or computational cost are found in the provided Results & Discussion text or Tables 4–5.",
+      "page_reference": "Results & Discussion; Tables 4 and 5",
+      "notes": "The provided excerpts discuss accuracy/F1 and model comparisons but do not state runtime or compute cost. If runtime is reported elsewhere (e.g., Implementation Details, Supplementary), it is not included in the given sections.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "memory_footprint",
+      "criterion_number": 17,
+      "criterion_name": "Memory Footprint",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.3,
+      "evidence_text": "No explicit mention of GPU memory or RAM requirements found in the provided sections (Experiments, Tables 4-5).",
+      "page_reference": "Experiments; Tables 4 and 5",
+      "notes": "The excerpts discuss training configurations, datasets, and results but do not specify hardware memory requirements. Full paper may include it elsewhere, but not in the given sections.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "failure_analysis",
+      "criterion_number": 18,
+      "criterion_name": "Failure Analysis",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.45,
+      "evidence_text": null,
+      "page_reference": "Results & Discussion; Tables cited",
+      "notes": "In the provided sections, results and comparisons are reported, with hypotheses about a baseline’s performance drop, but there is no explicit discussion of failure cases, model limitations, or scenarios where their method underperforms. No qualitative failure examples are shown in text; supplementary video is mentioned but not analyzed here.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "clinical_significance",
+      "criterion_number": 19,
+      "criterion_name": "Clinical Significance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.55,
+      "evidence_text": "Advancements in machine learning and computer vision are transforming computer-assisted surgery, enabling precise planning, real-time decision support, and automated workflow analysis... dynamic scene graph representations holds significant promise for revolutionizing surgical workflow analysis...",
+      "page_reference": "Introduction; Results & Discussion",
+      "notes": "The paper discusses potential impact in general terms (workflow recognition benefits) but does not explicitly articulate clinical/practical significance of performance gains (e.g., impact on surgical outcomes, efficiency, error reduction, or clinician workflow) nor quantify how improvements translate to clinical practice.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "computing_infrastructure",
+      "criterion_number": 20,
+      "criterion_name": "Computing Infrastructure",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.4,
+      "evidence_text": "No mention of GPU/CPU models, number of GPUs, or memory is found in the provided sections. The tables report dataset sizes and recognition results but not hardware specs.",
+      "page_reference": "Tables 2, 4, 5 (provided excerpts)",
+      "notes": "Based on the supplied sections only; the full paper may include hardware details elsewhere, but they are not present here.",
+      "importance": "important"
+    }
+  ],
+  "code_analysis": {
+    "methodology": {
+      "methodology_type": "deep_learning",
+      "requires_training": true,
+      "requires_datasets": true,
+      "requires_splits": true,
+      "methodology_notes": "The work introduces a new dataset (CAT-SG) and trains deep learning models for two stages: (1) instance segmentation to ground entities (Mask2Former with a VideoSwin backbone pretrained via Watch&Learn/VALOR on domain videos), and (2) scene graph relation prediction (CatSGG/CatSGG+) using query embeddings from the segmentation model for pairwise relation existence and multi-label classification. A large vision-language SGG baseline (ORacle) is also trained/evaluated for comparison. Downstream recognition baselines use graph neural networks (GATv2) and a fine-tuned LLM (Llama 3.2 3B via QLoRA) to classify phases and techniques from scene graphs. The dataset extends CATARACTS with frame-level (5 fps) entities, geometric relations (Close to from segmentation adjacency) and semantic relations (8 classes) produced by 9 annotators with expert review; spatial features (pos/size/boxes) are pseudo-labels from CaDIS-based segmentation. Evaluation requires standard train/val/test splits aligned with CATARACTS (50 videos; split structure provided in annotations/splits), temporal sampling windows, and reporting micro/macro F1 for SGG and accuracy/F1 for downstream tasks. Reproducibility hinges on: access to CATARACTS videos, CAT-SG annotations and pseudo-masks, precise pretraining sources for VideoSwin (Watch&Learn/VALOR), segmentation training configuration (M2F with 8-frame chunks, subsampling to 18 chunks/video), relation sampling constraints for rare classes, thresholding at 0.5 for relation existence and classification, temporal windowing/dilation (5 fps default) and construction of dynamic scene graphs (dataloader.py defines node/edge features, temporal edges, one-hot edge_attr including temporal-edge flag). Clear documentation of object/edge vocabularies (29 objects, 9 relations), temporal aggregation in CatSGG+ (max pooling across frames), and ORacle variants (SV/SVT) is required. Benchmarks demonstrate CatSGG(+) outperforming ORacle on CAT-SG. Overall, the methodology is dataset-centric, deep-learning based, and depends on well-defined splits, temporal sampling, and pretrained backbones for reproducibility."
+    },
+    "structure": {
+      "is_standalone": true,
+      "base_repository": null,
+      "has_requirements": false,
+      "requirements_match_imports": null,
+      "requirements_issues": [
+        "No requirements.txt or environment file found; users must infer dependencies.",
+        "dataloader.py imports torch and torch_geometric but no installation guidance or pinned versions are provided, risking version mismatch (e.g., PyTorch-Geometric has strict version coupling with PyTorch/CUDA).",
+        "Potential missing standard libraries not an issue (json, os are in stdlib), but third-party deps (torch, torch_geometric) are unspecified.",
+        "README mentions using PyTorch Geometric InMemoryDataset but does not specify required versions or additional PyG dependencies (e.g., torch-scatter/torch-sparse wheels).",
+        "dataloader.py references an undefined variable 'data_mode' in __init__, which will raise a NameError on instantiation; even with correct dependencies, code execution will fail without fixing this."
+      ]
+    },
+    "components": {
+      "has_training_code": false,
+      "training_code_paths": [],
+      "has_evaluation_code": false,
+      "evaluation_code_paths": [],
+      "has_documented_commands": false,
+      "command_documentation_location": null,
+      "evidence": {
+        "files_inspected": ["README.md", "dataloader.py"],
+        "observations": [
+          "dataloader.py implements a PyTorch Geometric InMemoryDataset (CATSG) for loading/processing annotations into dynamic scene graphs but contains no model definitions, training loops, loss functions, or optimization routines.",
+          "No evaluation scripts, metrics computation, or inference routines are present. The dataloader only prepares Data objects (x, edge_index, edge_attr, y, pos).",
+          "README.md provides dataset description, structure, and high-level benchmark tables, but no shell commands or code snippets that run training or evaluation; only a note suggesting to use dataloader.py as reference.",
+          "No setup.py, requirements.txt, or scripts directories with train/eval entry points are included."
+        ]
+      }
+    },
+    "artifacts": {
+      "has_checkpoints": false,
+      "checkpoint_locations": [],
+      "has_dataset_links": true,
+      "dataset_coverage": "partial",
+      "dataset_links": [
+        {
+          "name": "CAT-SG (project/repository)",
+          "url": "https://github.com/felixholm/CAT-SG"
+        },
+        {
+          "name": "CAT-SG paper",
+          "url": "https://papers.miccai.org/miccai-2025/paper/1687_paper.pdf"
+        },
+        {
+          "name": "CATARACTS (underlying videos)",
+          "url": "https://ieee-dataport.org/open-access/cataracts"
+        },
+        {
+          "name": "CaDIS (segmentation masks basis)",
+          "url": "https://cataracts.grand-challenge.org/CaDIS/"
+        }
+      ]
+    },
+    "dataset_splits": {
+      "splits_specified": true,
+      "splits_provided": true,
+      "random_seeds_documented": false,
+      "splits_notes": "Both the paper and README state that the dataset follows the original CATARACTS splits: 50 videos named train01–train25 and test01–test25, with validation drawn from CATARACTS test/val. The README explicitly documents a splits directory (annotations/splits/) whose structure mirrors CATARACTS train/test/val and further nests per-video subfolders for val and test to enable per-video loaders. This constitutes a deterministic, video-level split specification with file names fixed; no randomness or seeds are involved in defining the split. In the provided dataloader, there is no split selection logic—it expects to be pointed at a raw directory (so users should point it to the corresponding splits/train, splits/val, or splits/test subtrees). Because the split is file-name based and included in the repo structure, replicability of the split is high. No random seeds are documented for data partitioning (not needed here), and no seeds are provided for other stochastic components (e.g., model training), which does not impact reproducing the dataset splits but may affect reproducing training results."
+    },
+    "documentation": {
+      "has_readme": true,
+      "has_results_table": true,
+      "has_reproduction_commands": false,
+      "documentation_notes": "The repository includes a comprehensive README with a clear overview, dataset purpose, key features, statistics, object/relation taxonomies, tasks supported, dataset structure, and example annotation schema. Results tables for benchmarks (scene graph generation, workflow recognition, technique recognition) are provided and align with the paper’s reported metrics, improving traceability. The README links the paper, license, source datasets (CATARACTS, CaDIS), and provides contact information. It also provides a dataset directory layout and clarifies that bounding boxes/positions/sizes are pseudolabels. The dataloader.py is well-documented with docstrings and in-line comments, detailing how dynamic scene graphs are formed (windowing, dilation, temporal edges, edge attributes, node features, one-hot labels). However, there are notable gaps for full reproducibility: (1) No explicit reproduction commands or scripts for training/evaluating the benchmark models (CatSGG, ORacle variants, GATv2, Llama); (2) No environment specification (requirements.txt, conda env, package versions, CUDA/PyTorch-Geometric compatibility notes); (3) No instructions for downloading/placing the annotations beyond cloning, and no verification hashes; (4) The README suggests using dataloader.py as reference but lacks end-to-end examples (e.g., minimal code snippet to instantiate CATSG with representative arguments and iterate); (5) Minor inconsistency/typo risks: dataloader references a variable data_mode that is not defined and uses shortened object/relation labels that must match annotation files—mapping clarity is partly given but could benefit from an explicit mapping table/example; (6) Lack of details on preprocessing steps for CatSGG (e.g., pretrained backbones, thresholds, sampling constraints), though some are in the paper; (7) No instructions for reproducing the reported metrics (splits, seeds, batch sizes, learning rates, epochs). Overall, documentation quality is strong for dataset description and structure, but incomplete for executable reproducibility of the experiments."
+    }
+  }
+}

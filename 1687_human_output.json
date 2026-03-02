@@ -1,0 +1,18 @@
+{
+  "reproducibility_score": 44.3,
+  "score_breakdown": {
+    "code_completeness": 16.7,
+    "dependencies": 0.0,
+    "artifacts": 60.0,
+    "dataset_splits": 70.0,
+    "documentation": 62.5
+  },
+  "recommendations": [
+    "Provide both training and evaluation code",
+    "Document precise commands to run the code",
+    "Add requirements/dependencies file with all necessary packages and versions",
+    "Release model checkpoints to enable result verification without retraining",
+    "Document random seeds for reproducible data partitioning",
+    "Document step-by-step reproduction commands"
+  ]
+}

@@ -1,0 +1,320 @@
+{
+  "dataset_analysis": [],
+  "paper_analysis": [
+    {
+      "criterion_id": "mathematical_description",
+      "criterion_number": 1,
+      "criterion_name": "Mathematical Description",
+      "category": "models",
+      "present": false,
+      "confidence": 0.63,
+      "evidence_text": "\"For a model vertex P_i, its position after deformation is calculated using its m neighboring nodes:\" (formula not shown). \"Specifically, the curves C_k and C̄_k are transformed to their SRVF representations, q_{C_k} and q_{C̄_k}. Then, the alignment problem is formulated as estimating the optimal rotation O ∈ SO(2) and reparameterization func... [truncated]\"",
+      "page_reference": "Methodology; Problem Description",
+      "notes": "While the text mentions ED graph with affine transforms and SRVF-based registration and references projection model with K, R_k, t_k, the explicit equations are missing or truncated. Key formulas for deformation interpolation, SRVF definition q(t)=c'(t)/sqrt(||c'(t)||), the optimization objective, weights, regularizers, and computational steps are not fully provided in the excerpts. Therefore, a full mathematical description cannot be confirmed from provided sections.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "assumptions_stated",
+      "criterion_number": 2,
+      "criterion_name": "Model Assumptions",
+      "category": "models",
+      "present": false,
+      "confidence": 0.41,
+      "evidence_text": "\"Zero-mean Gaussian noise with standard deviation (SD) of 2 pixels is added to the contour feature observations...\" and noise assumptions for pose/scale are given, but no explicit modeling assumptions (e.g., independence, distributional assumptions of data, convergence conditions) for the reconstruction/registration model itself are stated.",
+      "page_reference": "SIMULATED_DATA_EXPERIMENTS; EXPERIMENTS",
+      "notes": "The provided sections describe simulation noise models and fixed hyperparameters, but do not state explicit assumptions underpinning the SRVF elastic registration or deformation graph model (e.g., shape smoothness priors, rigidity/locality, independence of observations, or convergence conditions). Lacking Methods text limits verification; based on available text, criterion not satisfied.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "software_framework",
+      "criterion_number": 3,
+      "criterion_name": "Software Framework",
+      "category": "models",
+      "present": false,
+      "confidence": 0.54,
+      "evidence_text": "No explicit mention of software frameworks or versions (e.g., PyTorch, TensorFlow, scikit-learn) is found in the provided sections. The abstract mentions code availability but not the framework used.",
+      "page_reference": "Abstract; Experiments; Methodology",
+      "notes": "They provide a GitHub link in the abstract, but the excerpt does not state any software framework or version. Full paper might include it elsewhere, but not in the given sections.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "hyperparameters_reported",
+      "criterion_number": 4,
+      "criterion_name": "Hyperparameters Reported",
+      "category": "models",
+      "present": false,
+      "confidence": 0.49,
+      "evidence_text": "Provided sections describe methodology concepts (ED graph, SRVF registration) and simulation noise settings, but do not specify learning rate, batch size, optimizer, training epochs, or architecture/implementation hyperparameters.",
+      "page_reference": "Methodology; Simulated Data Experiments",
+      "notes": "Paper appears algorithmic/optimization-based without a trainable deep network. Still, key algorithm hyperparameters (e.g., number of ED nodes, m neighbors, weights, regularization terms, optimizer settings for registration) are not specified in provided text. If elsewhere they list these, it could change, but not evident here.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "hyperparameter_selection",
+      "criterion_number": 5,
+      "criterion_name": "Hyperparameter Selection Method",
+      "category": "models",
+      "present": false,
+      "confidence": 0.64,
+      "evidence_text": "\"We use the weights w rot = 1, w reg = 10, w obs = 100 for all our experiments and the number of nearest nodes m is set to 6.\"",
+      "page_reference": "Experiments section",
+      "notes": "The paper reports fixed hyperparameter values (weights and m) but does not describe how these were selected (e.g., grid search, validation tuning). Thus the selection method is not provided.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "baseline_implementation",
+      "criterion_number": 6,
+      "criterion_name": "Baseline Implementation",
+      "category": "models",
+      "present": false,
+      "confidence": 0.64,
+      "evidence_text": "\"We validate ... and compare against classical ICP ... and the feature-based Euclidean 2D-3D registration method (ICP-NormVec) ...\" and \"We use the weights w_rot = 1, w_reg = 10, w_obs = 100 ...\"",
+      "page_reference": "Experiments section",
+      "notes": "The paper names two baselines (ICP and ICP-NormVec) but provides no substantive implementation or tuning details for them (e.g., correspondence strategy specifics for ICP, stopping criteria, initialization, parameter choices for ICP-NormVec thresholds, number of iterations, convergence criteria, or how fairness was ensured). Global weights given appear for the proposed method, not for baselines.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "sensitivity_analysis",
+      "criterion_number": 7,
+      "criterion_name": "Sensitivity Analysis",
+      "category": "models",
+      "present": false,
+      "confidence": 0.58,
+      "evidence_text": "Five different levels of noise are added to the rotation, translation, and scale ... Ten independent runs are executed for each noise level to test the robustness and accuracy of the proposed algorithm against compared methods.",
+      "page_reference": "Simulated_Data_Experiments",
+      "notes": "The paper varies input noise levels to test robustness, but there is no clear ablation or parameter sensitivity analysis of key model/design choices (e.g., number of ED graph nodes, neighbors m, SRVF settings, weighting terms). Thus, sensitivity of parameters/design choices is not demonstrated.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "dataset_statistics",
+      "criterion_number": 8,
+      "criterion_name": "Dataset Statistics",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.6,
+      "evidence_text": "Table 1 lists per-patient MAE/SD for 5 patients (PatientID 1–5). Simulated data section describes synthetic view generation and added noise. No details on real dataset size beyond 5 patients, no class distribution, demographics, imaging parameters (e.g., X-ray settings), or broader statistics are provided.",
+      "page_reference": "Table 1; Simulated Data Experiments section",
+      "notes": "While simulation setup is described (noise levels, views), the real patient dataset lacks statistics such as number of subjects beyond N=5, age/sex, acquisition parameters, or variability. Thus dataset statistics are insufficient.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "dataset_splits",
+      "criterion_number": 9,
+      "criterion_name": "Dataset Splits",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": "\"We validate our 3D acetabular surface reconstruction framework using simulated and real patient data... our limited dataset (five pelvis CT scans and a few number of X-rays) is insufficient for constructing reliable SSMs.\"",
+      "page_reference": "Experiments section",
+      "notes": "The paper mentions using five pelvis CT scans and some X-rays but provides no train/validation/test split details, nor any cross-validation or fold definitions. Appears to be purely evaluation without learning, but dataset partitioning strategy is not described.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "dataset_availability",
+      "criterion_number": 10,
+      "criterion_name": "Dataset Availability",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.66,
+      "evidence_text": "No sections provided mention public dataset names, sources, or how to access/request the data. Real patient data are referenced only in Table 1 without any availability statement.",
+      "page_reference": "Table 1; overall provided excerpts",
+      "notes": "Paper uses CT-segmented acetabular surfaces and real patient data, but there is no indication of public dataset names or access instructions in the given text.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_ethics",
+      "criterion_number": 11,
+      "criterion_name": "Ethics Approval",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.41,
+      "evidence_text": "We validate our 3D acetabular surface reconstruction framework using simulated and real patient data... our limited dataset (five pelvis CT scans and a few number of X-rays)...",
+      "page_reference": "Experiments section",
+      "notes": "The provided sections mention using real patient data but do not state IRB/ethics approval or that approval was not needed. Without explicit mention, the criterion is not satisfied.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "number_of_runs",
+      "criterion_number": 12,
+      "criterion_name": "Number of Runs",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.8,
+      "evidence_text": "\"Ten independent runs are executed for each noise level to test the robustness and accuracy of the proposed algorithm against compared methods.\"",
+      "page_reference": "SIMULATED_DATA_EXPERIMENTS",
+      "notes": "The number of runs is clearly specified for simulation experiments. For real patient data, the table reports MAE and SD across five patients, but explicit runs/repetitions beyond patients aren't specified. Still, the criterion is satisfied by the simulation runs statement.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "results_with_variance",
+      "criterion_number": 13,
+      "criterion_name": "Results with Variance",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.86,
+      "evidence_text": "\"Table 1 . Summary of MAEs and SD of the reconstruction results on real patient data. MAEs SD ...\" and \"Ten independent runs are executed for each noise level to test the robustness and accuracy of the proposed algorithm against compared methods.\"",
+      "page_reference": "Table 1; Simulated Data Experiments section",
+      "notes": "Table 1 reports mean absolute errors and standard deviations on real patient data. The simulation section indicates 10 independent runs per noise level, implying variability assessment; figures likely summarize results but exact mean±SD for simulations not shown here.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "statistical_significance",
+      "criterion_number": 14,
+      "criterion_name": "Statistical Significance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.81,
+      "evidence_text": "Table 1 reports MAEs and SDs for methods and patients, and simulations mention \"Ten independent runs are executed for each noise level\". No mention of statistical tests (t-test, Wilcoxon, p-values) is found in the provided sections.",
+      "page_reference": "Table 1; Simulated Data Experiments; Experiments",
+      "notes": "While means and standard deviations and multiple runs are reported, there is no evidence of hypothesis testing or p-values to support claims of superiority.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "evaluation_metrics",
+      "criterion_number": 15,
+      "criterion_name": "Evaluation Metrics",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.6,
+      "evidence_text": "Table 1 . Summary of MAEs and SD of the reconstruction results on real patient data. ... Metrics(mm) ...",
+      "page_reference": "Table 1; Experiments section",
+      "notes": "The paper reports MAE and SD, but there are no clear metric definitions or formulas (e.g., for MAE) provided in the given sections. No definitions for Dice, IoU, AUC, sensitivity, or specificity are present.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "runtime_reported",
+      "criterion_number": 16,
+      "criterion_name": "Runtime Reported",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.4,
+      "evidence_text": "No mentions of training/inference time, per-iteration runtime, or computational cost are found in the provided sections (Table 1, Methodology, Simulated Data Experiments).",
+      "page_reference": "Table 1; Methodology; Simulated Data Experiments",
+      "notes": "The excerpts focus on accuracy metrics and methodological details; no timing or hardware details are reported in the provided text.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "memory_footprint",
+      "criterion_number": 17,
+      "criterion_name": "Memory Footprint",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.7,
+      "evidence_text": "No mention of GPU memory, RAM usage, or hardware memory requirements is provided in the given sections.",
+      "page_reference": "Experiments; Methodology; Table 1",
+      "notes": "The experiments section reports hyperparameters and dataset details but does not specify memory requirements or hardware specs.",
+      "importance": "optional"
+    },
+    {
+      "criterion_id": "failure_analysis",
+      "criterion_number": 18,
+      "criterion_name": "Failure Analysis",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.38,
+      "evidence_text": "No explicit discussion of failure cases, limitations, or scenarios where the method underperforms is visible in the provided sections. The table and simulation setup report performance and robustness but do not analyze failures.",
+      "page_reference": "Table 1; Simulated Data Experiments; Methodology",
+      "notes": "Given only these excerpts, there is no mention of where/why the method fails (e.g., extreme noise, occlusions, atypical anatomy). If the full paper contains a Discussion/Limitation section, it is not included here.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "clinical_significance",
+      "criterion_number": 19,
+      "criterion_name": "Clinical Significance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.5,
+      "evidence_text": "We validate our 3D acetabular surface reconstruction framework using simulated and real patient data...",
+      "page_reference": "Experiments section; Table 1",
+      "notes": "The provided sections report accuracy (MAE, SD) and comparisons to baselines, but do not discuss implications for clinical decision-making, workflows, or thresholds of acceptable error for acetabular reconstruction. No statements on how results affect diagnosis, planning, or outcomes are shown.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "computing_infrastructure",
+      "criterion_number": 20,
+      "criterion_name": "Computing Infrastructure",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.41,
+      "evidence_text": "No mentions of GPU/CPU models, number of GPUs, or memory are found in the provided sections. The Experiments section discusses settings (weights, m=6, N=3) and dataset limitations but not hardware.",
+      "page_reference": "Experiments section; provided excerpts",
+      "notes": "Based on the supplied excerpts, there is no reporting of hardware specifications. If such details exist elsewhere in the full paper, they were not included here.",
+      "importance": "important"
+    }
+  ],
+  "code_analysis": {
+    "methodology": {
+      "methodology_type": "algorithm",
+      "requires_training": false,
+      "requires_datasets": true,
+      "requires_splits": false,
+      "methodology_notes": "The work is an optimization-based algorithmic framework for 3D acetabular surface reconstruction from multiple pre-operative X-ray views using an embedded deformation (ED) graph and SRVF-based 2D curve alignment. There is no learning component; instead, it relies on: (1) ED graph with affine node transforms optimized via Gauss-Newton (with line search and rotation/regularization/observation terms), (2) SRVF-based elastic registration to compute robust 2D contour correspondences (invariant to parameterization/rotation/scale) using dynamic programming, and (3) iterative refinement with occasional correspondence recalculation and ED graph reinitialization. Reproducibility essentials: access to input 3D models (CT-segmented acetabulum surfaces or a standard hemispherical model), pre-operative X-ray images (AP + two lateral) with surgeon-annotated acetabular contours, calibrated camera poses for each X-ray (2D–3D registration to CT pelvis used in patient validation), and simulation protocols (multi-view rendering with specified pose/noise levels and 2-pixel contour noise). Code evidence includes SRVF correspondence functions (calculate_correspondence_observation2ModelContourSRVF[_adapt].m with curve sorting, direction checking, DBSCAN outlier removal, and fdasrvf alignment), Euclidean/normal-threshold KNN baselines (calculate_correspondence_observation2ModelContour, ...KNN), ED optimization components (Optimization_ObjectFunc with rotation/regularization/user-observation penalties, LineSearch), and camera/depth utilities. Fixed hyperparameters reported: w_rot=1, w_reg=10, w_obs=100; m=6 nearest nodes; typically N=3 X-ray views. Evaluation requires datasets (simulated and five patient cases) but no train/val/test splits, since there is no model training; comparisons are against ICP variants using error metrics (MAE, SD) against CT-segmented ground truth."
+    },
+    "structure": {
+      "is_standalone": true,
+      "base_repository": null,
+      "has_requirements": false,
+      "requirements_match_imports": null,
+      "requirements_issues": [
+        "No explicit dependency manifest (e.g., requirements.txt, environment.yml, MATLAB project file) is present; README says code is 'not ready for use yet'.",
+        "Repository appears to rely on external MATLAB toolboxes and third-party code without vendoring or installation instructions: fdasrvf (jdtuck-fdasrvf_MATLAB-3.6.3.0), Statistics and Machine Learning Toolbox (dbscan), Computer Vision Toolbox (plotCamera, pointCloud, pcregistericp), and possibly others.",
+        "Paths are hard-coded via addpath to local subfolders (camera/, utils/, curves_align/, EulerDerivation/, deform_toolbox/, pinholeModel/); several referenced functions (e.g., pairwise_align_curves, pairwise_align_curves_adapt, nearest_neighbor_sort, checkCurveDirection, Map_Points, UpdateWeights, AortaDef2D, computeError_result2groundtruth) are not shown here and may be missing.",
+        "Data dependencies are hard-coded (MAT files and STL files under ./Observation/); no data download or generation script is provided.",
+        "Multiple scripts use uigetfile or hard-coded file names and assume interactive MATLAB session and presence of STL files; this hinders reproducibility without setup guidance.",
+        "LICENSE indicates 2025 ownership; README suggests future updates, reinforcing that the codebase may be incomplete."
+      ]
+    },
+    "components": {
+      "has_training_code": false,
+      "training_code_paths": [],
+      "has_evaluation_code": true,
+      "evaluation_code_paths": [
+        "main_RTHA.m",
+        "camera/calculate_correspondence_observation2ModelContour.m",
+        "camera/calculate_correspondence_observation2ModelContourKNN.m",
+        "camera/calculate_correspondence_observation2ModelContourSRVF.m",
+        "camera/calculate_correspondence_observation2ModelContourSRVF_adapt.m",
+        "embedded_deformation/Main.m",
+        "embedded_deformation/Main_deform_acetabulum.m",
+        "embedded_deformation/deform_toolbox/Optimization_ObjectFunc.m",
+        "embedded_deformation/deform_toolbox/JacobianF.m",
+        "embedded_deformation/ReadSTLACSII.m",
+        "embedded_deformation/pinholeModel/ReturnSign.m"
+      ],
+      "has_documented_commands": false,
+      "command_documentation_location": "README.md"
+    },
+    "artifacts": {
+      "has_checkpoints": true,
+      "checkpoint_locations": [
+        "./Observation/Camera_simulation.mat",
+        "./Observation/Observation.mat",
+        "./Observation/Images.mat",
+        "./Observation/Camera.mat",
+        "model_rst_using_noise_5_2_SRVF.mat",
+        "mode_reconstruction_noise_5_2_SRVF.stl",
+        "pointcloud_w_deform_level_15.mat"
+      ],
+      "has_dataset_links": true,
+      "dataset_coverage": "partial",
+      "dataset_links": [
+        {
+          "name": "Project repository (claims to host code and data)",
+          "url": "https://github.com/zsustc/3D-ASR"
+        }
+      ]
+    },
+    "dataset_splits": {
+      "splits_specified": false,
+      "splits_provided": false,
+      "random_seeds_documented": false,
+      "splits_notes": "Neither the paper excerpts nor the repository code mention any explicit train/validation/test dataset splits. The paper describes experiments on simulated data (multiple noise levels with ten independent runs) and on five real patients, but does not indicate partitioning into splits; it appears to be purely evaluation without a learning component requiring training/validation. The codebase loads prepackaged observations and camera parameters (e.g., ./Observation/Camera_simulation.mat, ./Observation/Observation.mat, ./Observation/Images.mat, ./Observation/Camera.mat) and runs reconstruction directly (main_RTHA.m), with no split-handling. The embedded_deformation scripts generate synthetic deformations procedurally rather than using dataset splits. There is no evidence of seed control for randomness; where randomness is used (e.g., extra_deform_level * (rand(...) - 0.5) in embedded_deformation/Main_deform_acetabulum.m), seeds are not set, which affects reproducibility of simulated results and the 'ten independent runs' in the paper. Overall, replicability of any stochastic evaluations would require authors to provide fixed seeds and/or exact indices of runs; currently these are absent. For real patient results (n=5), reproducibility depends on access to the same five patients and associated CT/X-ray data; no split files or subject IDs are provided."
+    },
+    "documentation": {
+      "has_readme": true,
+      "has_results_table": true,
+      "has_reproduction_commands": false,
+      "documentation_notes": "The repository includes a minimal README.md but it is not actionable. It only states update history and that the code is 'coming soon/not ready,' with no setup instructions, dependency list, data acquisition, or run commands. The paper excerpts provide evaluation context (simulation protocol, patient validation, Table 1 metrics), and a results table is present in the paper text (Table 1: MAEs and SD across five patients), but the repository does not mirror these results in its documentation. Several MATLAB entry scripts (e.g., main_RTHA.m, embedded_deformation/Main.m, embedded_deformation/Main_deform_acetabulum.m) reveal expected inputs and workflow, but they rely on pre-existing .mat files and .stl models in hardcoded paths (e.g., ./Observation/*.mat, ./Observation/*.stl, fitted_acetabulum_hemisphere_remesh.stl) without instructions on how to generate or obtain them. There is no environment specification (MATLAB version/toolboxes), no description of required third-party packages (fdasrvf referenced under curves_align, Computer Vision Toolbox functions like plotCamera/pcshow/pointCloud suggested), and no command-line or step-by-step reproduction guide linking the code to the paper’s experiments (e.g., simulated AP/lateral views, noise schedules, 10-run protocol). Function headers in camera/ provide some parameter descriptions and inline comments are moderately helpful, but many magic numbers (e.g., DBSCAN epsilon=50, N=2000, stp=6, thresholds) are undocumented. In summary, documentation quality is low for reproducibility: there is a README but it lacks installation, data, and run instructions; scripts are partially self-descriptive but depend on unspecified assets; and there are no explicit reproduction commands."
+    }
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "paper_analysis": [
+    {
+      "criterion_id": "mathematical_description",
+      "criterion_number": 1,
+      "criterion_name": "Mathematical Description",
+      "category": "models",
+      "present": true
+    },
+    {
+      "criterion_id": "assumptions_stated",
+      "criterion_number": 2,
+      "criterion_name": "Model Assumptions",
+      "category": "models",
+      "present": true
+    },
+    {
+      "criterion_id": "software_framework",
+      "criterion_number": 3,
+      "criterion_name": "Software Framework",
+      "category": "models",
+      "present": false
+    },
+    {
+      "criterion_id": "hyperparameters_reported",
+      "criterion_number": 4,
+      "criterion_name": "Hyperparameters Reported",
+      "category": "models",
+      "present": true,
+      "evidence_text": "We use the weights wrot = 1, wreg = 10, wobs = 100 for all our experiments[18] and the number of nearest nodes m is set to 6",
+      "page_reference": "Experiments"
+    },
+    {
+      "criterion_id": "hyperparameter_selection",
+      "criterion_number": 5,
+      "criterion_name": "Hyperparameter Selection Method",
+      "category": "models",
+      "present": false
+    },
+    {
+      "criterion_id": "baseline_implementation",
+      "criterion_number": 6,
+      "criterion_name": "Baseline Implementation",
+      "category": "models",
+      "present": true
+    },
+    {
+      "criterion_id": "sensitivity_analysis",
+      "criterion_number": 7,
+      "criterion_name": "Sensitivity Analysis",
+      "category": "models",
+      "present": true,
+      "evidence_text": "Five different levels of noise are added to the rotation, translation, and scale of the standard hemispherical surface model and used in the 3D reconstruction simulation.",
+      "page_reference": "SIMULATED_DATA_EXPERIMENTS",
+      "notes": "The paper conducts a sensitivity analysis by varying noise levels in rotation, translation, and scale, and evaluates the robustness and accuracy of the proposed algorithm."
+    },
+    {
+      "criterion_id": "dataset_statistics",
+      "criterion_number": 8,
+      "criterion_name": "Dataset Statistics",
+      "category": "datasets",
+      "present": true,
+      "evidence_text": "For clinical validation, datasets from five primary THA patients were collected, each including pre-operative pelvic CT scans, AP and two lateral views of pre-operative pelvic X-ray images, and intra- operatively confirmed cup dimensions. The X-rays (AP and two lateral views) were captured by maintaining the pelvis stable (the same supine position) and maximizing the angular disparity. Acetabular contour observations were inde- pendently annotated by two orthopaedic surgeons to ensure reliability. The an- terior and posterior walls of the acetabulum are often superimposed with other osseous structures (e.g., ilium, ischium) or soft tissues (e.g., intestinal gas, fat), thus blurry edges of the walls are notusedas observation inthe real experiments. The poses of X-ray images used in our reconstruction validation are obtained from 2D-3D registration to CT-segmented pelvic models.",
+      "page_reference": "Validation using patient data"
+    },
+    {
+      "criterion_id": "dataset_splits",
+      "criterion_number": 9,
+      "criterion_name": "Dataset Splits",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": "Additionally, our limited dataset (five pelvis CT scans and a few number of X-rays) is insufficient for constructing reliable SSMs.",
+      "page_reference": "Experiments section",
+      "notes": "The paper mentions a limited dataset but does not provide specific details on train/val/test splits or cross-validation strategy.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "dataset_availability",
+      "criterion_number": 10,
+      "criterion_name": "Dataset Availability",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention any public dataset names or provide an availability statement for accessing the data used in the study.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_ethics",
+      "criterion_number": 11,
+      "criterion_name": "Ethics Approval",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The paper mentions the use of real patient data but does not specify ethics approval or mention that no approval was needed. This is important when using patient data.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "number_of_runs",
+      "criterion_number": 12,
+      "criterion_name": "Number of Runs",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "Ten independent runs are executed for each noise level to test the robustness and accuracy of the proposed algorithm against compared methods.",
+      "page_reference": "SIMULATED_DATA_EXPERIMENTS",
+      "notes": null,
+      "importance": "important"
+    },
+    {
+      "criterion_id": "results_with_variance",
+      "criterion_number": 13,
+      "criterion_name": "Results with Variance",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.9,
+      "evidence_text": "Table 1 . Summary of MAEs and SD of the reconstruction results on real patient data.",
+      "page_reference": "TABLE_1_",
+      "notes": "The paper provides mean absolute errors (MAEs) and standard deviations (SD) for the reconstruction results, indicating variance across multiple runs.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "statistical_significance",
+      "criterion_number": 14,
+      "criterion_name": "Statistical Significance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": "Table 1 . Summary of MAEs and SD of the reconstruction results on real patient data.",
+      "page_reference": "TABLE_1_",
+      "notes": "The paper provides Mean Absolute Errors (MAEs) and Standard Deviations (SD) but does not mention any statistical tests like t-tests or p-values to validate performance claims.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "evaluation_metrics",
+      "criterion_number": 15,
+      "criterion_name": "Evaluation Metrics",
+      "category": "experiments",
+      "present": true,
+      "evidence_text": "Table 1 . Summary of MAEs and SD of the reconstruction results on real patient data.",
+      "page_reference": "TABLE_1_",
+      "notes": "The paper mentions MAEs and SD but does not provide definitions or formulas for these metrics. No other metrics like Dice, IoU, AUC, sensitivity, or specificity are mentioned or defined."
+    },
+    {
+      "criterion_id": "runtime_reported",
+      "criterion_number": 16,
+      "criterion_name": "Runtime Reported",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention any details about the training or inference time for the method. This information is crucial for understanding the computational cost of the proposed method.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "memory_footprint",
+      "criterion_number": 17,
+      "criterion_name": "Memory Footprint",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The paper does not specify GPU memory or RAM requirements for running the method. This information is crucial for reproducibility, especially for computational methods involving 3D reconstruction.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "failure_analysis",
+      "criterion_number": 18,
+      "criterion_name": "Failure Analysis",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.8,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not discuss failure cases, limitations, or scenarios where the method underperforms. The focus is on methodology and performance metrics without addressing potential weaknesses.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "clinical_significance",
+      "criterion_number": 19,
+      "criterion_name": "Clinical Significance",
+      "category": "experiments",
+      "present": true,
+      "evidence_text": [
+        "Real patient data experiments demonstrate the feasibility and potential clinical value of the proposed framework",
+        "The reconstruction result can assist surgeons in selecting the correct acetabular cup on the first attempt in THA, minimising the need for revision surgery."
+      ],
+      "page_reference": "Conclusions"
+    },
+    {
+      "criterion_id": "computing_infrastructure",
+      "criterion_number": 20,
+      "criterion_name": "Computing Infrastructure",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.9,
+      "evidence_text": null,
+      "page_reference": null,
+      "notes": "The provided sections do not mention any hardware specifications such as GPU model, CPU, number of GPUs, or memory used for experiments.",
+      "importance": "important"
+    }
+  ],
+  "code_analysis": {
+    "research_methodology": {
+      "methodology_type": "algorithm",
+      "requires_training": false,
+      "requires_datasets": true,
+      "requires_splits": false,
+      "methodology_notes": "The research methodology described in the paper focuses on a novel algorithm for 3D acetabulum reconstruction using embedded deformation (ED) and square-root velocity function (SRVF) based non-rigid registration. The approach leverages mathematical models and optimization techniques rather than machine learning models, hence it does not require training. However, it does require datasets for validation, specifically 3D models and X-ray images for both simulated and real patient data. The methodology involves several algorithmic steps, including the calculation of 2D-3D correspondences, optimization of deformation parameters, and validation against ground truth data. The reproducibility of this research depends on the availability of the datasets and the implementation of the described algorithms. The paper provides detailed descriptions of the mathematical formulations and optimization strategies used, which are essential for reproducing the results. The code documentation supports the methodology by detailing the implementation of key functions used in the algorithm, such as correspondence calculation and deformation optimization."
+    },
+    "repository_structure": {
+      "is_standalone": true,
+      "base_repository": null,
+      "has_requirements": false,
+      "requirements_match_imports": null,
+      "requirements_issues": [
+        "Empty readme, no documentation provided",
+        "No requirements file provided",
+        "no MATLAB version"
+      ]
+    },
+    "code_components": {
+      "has_training_code": false,
+      "training_code_paths": [],
+      "has_evaluation_code": true,
+      "evaluation_code_paths": [
+        "camera/calculate_correspondence_observation2ModelContour.m",
+        "camera/calculate_correspondence_observation2ModelContourSRVF.m",
+        "camera/calculate_correspondence_observation2ModelContourKNN.m",
+        "main_RTHA.m"
+      ],
+      "has_documented_commands": false,
+      "command_documentation_location": null
+    },
+    "artifacts": {
+      "has_checkpoints": false,
+      "checkpoint_locations": [],
+      "has_dataset_links": false,
+      "dataset_coverage": "none",
+      "dataset_links": null
+    },
+    "dataset_splits": {
+      "splits_specified": false,
+      "splits_provided": false,
+      "random_seeds_documented": false,
+      "splits_notes": "The paper and code do not explicitly mention any train/validation/test splits for the datasets used in the experiments. The paper discusses the use of both simulated and real patient data but does not specify how these datasets are divided for training or testing purposes. The code files provided do not include any scripts or functions that indicate dataset splitting or the use of specific data partitions. Additionally, there is no documentation of random seeds being used to ensure replicability of the experiments. This lack of information on dataset splits and random seeds makes it challenging to replicate the study's results accurately."
+    },
+    "documentation": {
+      "has_readme": true,
+      "has_results_table": false,
+      "has_reproduction_commands": false,
+      "documentation_notes": "The project includes a README file, but it's empty"
+    },
+    "reproducibility_score": 47.9,
+    "score_breakdown": {
+      "code_completeness": 80,
+      "dependencies": 0,
+      "artifacts": 32,
+      "dataset_splits": 33.3,
+      "documentation": 62.5
+    }
+  }
+}

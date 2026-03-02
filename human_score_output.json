@@ -1,0 +1,18 @@
+{
+  "reproducibility_score": 31.6,
+  "score_breakdown": {
+    "code_completeness": 80.0,
+    "dependencies": 0.0,
+    "artifacts": 0.0,
+    "dataset_splits": 33.3,
+    "documentation": 25.0
+  },
+  "recommendations": [
+    "Document precise commands to run the code",
+    "Add requirements/dependencies file with all necessary packages and versions",
+    "Provide dataset download links",
+    "Document random seeds and parameters for reproducible results",
+    "Include results table in README for comparison",
+    "Document step-by-step reproduction commands"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "paper_analysis_by_category": {
+    "models": "4/7",
+    "datasets": "3/4",
+    "experiments": "4/9"
+  },
+  "code_analysis": {
+    "score_breakdown": {
+      "code_completeness": 50.0,
+      "dependencies": 0.0,
+      "artifacts": 60.0,
+      "dataset_splits": 70.0,
+      "documentation": 25.0
+    },
+    "reproducibility_score": 46.7,
+    "recommendations": [
+      "Add training code to enable full reproducibility",
+      "Document precise commands to run the code",
+      "Add requirements/dependencies file with all necessary packages and versions",
+      "Release model checkpoints to enable result verification without retraining",
+      "Document random seeds for reproducible data partitioning",
+      "Include results table in README for comparison",
+      "Document step-by-step reproduction commands"
+    ]
+  },
+  "dataset_analysis_by_category": {
+    "data_collection": "3/3",
+    "annotation": "2/4",
+    "ethics_availability": "1/3"
+  }
+}

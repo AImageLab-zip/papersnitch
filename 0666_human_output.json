@@ -1,0 +1,22 @@
+{
+  "paper_analysis_by_category": {
+    "models": "5/7",
+    "datasets": "3/4",
+    "experiments": "4/9"
+  },
+  "code_analysis": {
+    "score_breakdown": {
+      "code_completeness": 100.0,
+      "dependencies": 50.0,
+      "artifacts": 40.0,
+      "dataset_splits": 65.0,
+      "documentation": 100.0
+    },
+    "reproducibility_score": 74.3,
+    "recommendations": [
+      "Fix dependencies file - some imports are missing",
+      "Provide dataset download links",
+      "Provide split files or explicit split logic"
+    ]
+  }
+}

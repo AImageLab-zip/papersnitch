@@ -1,0 +1,428 @@
+{
+  "dataset_analysis": [
+    {
+      "criterion_id": "data_collection_described",
+      "criterion_number": 1,
+      "criterion_name": "Data Collection Process",
+      "category": "data_collection",
+      "present": false,
+      "confidence": 0.58,
+      "evidence_text": "“Our study utilized 119 CT volumes from the CTSpine1K dataset… After extracting volumetric ROIs… we performed pixel-level 3D annotations… In addition to the re-annotated CTSpine-Refined dataset, we collected another 51 patients' preoperative lumbar CT images… The scanning parameters… 120 kVp… patients group included 23 males and 28 females, average age 66.2 ± 5.3 years… 10 with scoliosis.”",
+      "page_reference": "DATA_ACQUISITION",
+      "notes": "They specify sources (CTSpine1K, plus 51 clinical cases), high-level selection criteria (image quality/anatomical completeness), basic demographics, and one scan parameter. Missing: recruitment strategy for the 51 patients, time period of collection, institutions involved, detailed sampling methodology (how cases were chosen), and fuller acquisition parameters/protocols. Thus not a complete description per criterion.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "acquisition_parameters",
+      "criterion_number": 2,
+      "criterion_name": "Acquisition Parameters",
+      "category": "data_collection",
+      "present": true,
+      "confidence": 0.73,
+      "evidence_text": "\"CTSpine-Refined (0.8mm isotropic voxels)... LDD-Mild: The 0.4mm axial resolution... LDD-Severe: Severely degenerated cases (0.39mm spacing)\" and Table 1: \"Spacing (mm) | (0.8, 0.8, 0.8) (0.4, 0.4, 0.75) (0.39 0.39 0.74)\"",
+      "page_reference": "DATASET_CENTRIC_PERFORMANCE_ANALYSIS; Table 1",
+      "notes": "Resolution/voxel spacing is clearly reported per subset. However, scanner make/model, imaging modality specifics (QCT protocol details, field of view, kVp/mAs, reconstruction kernel) are not provided in the supplied sections. Criterion partially satisfied but enough to mark presence for acquisition parameters (resolution).",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "study_cohort",
+      "criterion_number": 3,
+      "criterion_name": "Study Cohort Description",
+      "category": "data_collection",
+      "present": true,
+      "confidence": 0.79,
+      "evidence_text": "\"we collected another 51 patients' preoperative lumbar CT images... The patients group included 23 males and 28 females, and their average age was 66.2 ± 5.3 years, ranging from 51 to 76 years. Concretely, we constructed two datasets from these 51 clinical cases (10 with scoliosis) of lumbar degenerative diseases (LDD) reflecting different levels...\" Also: \"119 CT volumes from the CTSpine1K dataset... carefully selected based on image quality and anatomical completeness.\"",
+      "page_reference": "DATA_ACQUISITION",
+      "notes": "Provides subject selection (image quality/anatomical completeness for CTSpine; clinically diagnosed LDD undergoing fusion for clinical set), demographics (age, sex), and clinical characteristics (LDD, 10 with scoliosis). Cohort stratified into CTSpine-Refined, LDD-Mild, LDD-Severe (also reflected in Table 1). Inclusion/exclusion not exhaustively detailed but key elements are present.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "annotation_protocol",
+      "criterion_number": 4,
+      "criterion_name": "Annotation Protocol",
+      "category": "annotation",
+      "present": false,
+      "confidence": 0.38,
+      "evidence_text": "No provided section describes how annotations were created, who annotated, tools used, annotation guidelines, or detailed procedures for endplate segmentation labels.",
+      "page_reference": "Provided excerpts (Introduction, Implementation Details, Dataset-Centric Performance Analysis)",
+      "notes": "The paper discusses model training/evaluation and dataset subsets but does not include explicit annotation instructions, protocols, or tools in the supplied text. If such details exist elsewhere (e.g., Methods/Annotation section), they were not included here.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "annotator_details",
+      "criterion_number": 5,
+      "criterion_name": "Annotator Qualifications",
+      "category": "annotation",
+      "present": false,
+      "confidence": 0.54,
+      "evidence_text": "After extracting volumetric regions of interest (ROIs) centered on the lumbar spine, we performed pixel-level 3D annotations of vertebral endplates following clinical guidelines...",
+      "page_reference": "DATA_ACQUISITION",
+      "notes": "The paper mentions that annotations followed clinical guidelines but does not state who the annotators were (e.g., radiologists, surgeons), their number, training procedures, or detailed annotation instructions. Thus annotator qualifications are not described.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "inter_rater_agreement",
+      "criterion_number": 6,
+      "criterion_name": "Inter-Rater Agreement",
+      "category": "annotation",
+      "present": false,
+      "confidence": 0.34,
+      "evidence_text": "No mention of inter-annotator agreement metrics (e.g., Cohen’s kappa, ICC, Dice between annotators) is found in the provided sections. The metrics discussed are model evaluation metrics (Dice, Jaccard, HD95, ASD) against ground truth, not between human annotators.",
+      "page_reference": "Evaluation Protocol; Implementation Details; Table 4",
+      "notes": "The provided excerpts focus on automated evaluation of model outputs and benchmark results. There is no description of multiple annotators or agreement measurement for the ground-truth labels of the dataset.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "quality_control",
+      "criterion_number": 7,
+      "criterion_name": "Quality Control",
+      "category": "annotation",
+      "present": false,
+      "confidence": 0.41,
+      "evidence_text": "We performed pixel-level 3D annotations of vertebral endplates following clinical guidelines... resulting in 1,309 annotated endplate surfaces with sub-millimeter precision.",
+      "page_reference": "DATA_ACQUISITION",
+      "notes": "The paper mentions following clinical guidelines and claims sub-millimeter precision but does not describe annotation quality control: no details on annotator training, double annotation, inter-/intra-rater agreement, adjudication of disagreements, audit/review steps, or validation protocol for annotation accuracy.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "ethics_approval",
+      "criterion_number": 8,
+      "criterion_name": "Ethics Approval",
+      "category": "ethics_availability",
+      "present": false,
+      "confidence": 0.4,
+      "evidence_text": null,
+      "page_reference": "Provided sections (CONCLUSION, DATA_ACQUISITION, TABLE_4_)",
+      "notes": "The provided excerpts describe data sources (CTSpine1K and 51 preoperative clinical CTs) but do not mention IRB/ethics committee approval, informed consent, or a statement that approval was not required. If present elsewhere in the paper (e.g., Ethics or Methods), it was not included here.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "data_availability",
+      "criterion_number": 9,
+      "criterion_name": "Data Availability Statement",
+      "category": "ethics_availability",
+      "present": false,
+      "confidence": 0.4,
+      "evidence_text": "\"we introduce the open-access dataset Endplate3D-QCT\"",
+      "page_reference": "Conclusion",
+      "notes": "The provided sections state the dataset is open-access but do not include a public URL, repository name, contact information, request procedure, access conditions, or timeline. Without explicit access details, the data availability statement is insufficient.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "data_license",
+      "criterion_number": 10,
+      "criterion_name": "Usage License",
+      "category": "ethics_availability",
+      "present": false,
+      "confidence": 0.55,
+      "evidence_text": "No mention of license terms (e.g., CC-BY, usage restrictions, or permitted uses) is found in the provided sections.",
+      "page_reference": "Introduction; Evaluation Protocol; Table 4",
+      "notes": "The supplied excerpts do not contain any explicit licensing or terms of use for the dataset. If present elsewhere (e.g., Data Availability or Appendix), it is not included here.",
+      "importance": "critical"
+    }
+  ],
+  "paper_analysis": [
+    {
+      "criterion_id": "mathematical_description",
+      "criterion_number": 1,
+      "criterion_name": "Mathematical Description",
+      "category": "models",
+      "present": false,
+      "confidence": 0.6,
+      "evidence_text": "Table 2 provides only implementation details (parameters, input size, FLOPs) for baseline models. The Evaluation Protocol section gives mathematical definitions for evaluation metrics (volumetric metrics, surface distance, instance matching, precision/recall/F1) but not for model architectures or algorithms.",
+      "page_reference": "Table 2; Evaluation Protocol",
+      "notes": "While the paper includes mathematical formulas for the evaluation framework, it lacks a full mathematical description of the segmentation models/algorithms themselves (no equations or computational steps of the models). Therefore, the criterion for models is not satisfied.",
+      "importance": "optional"
+    },
+    {
+      "criterion_id": "assumptions_stated",
+      "criterion_number": 2,
+      "criterion_name": "Model Assumptions",
+      "category": "models",
+      "present": false,
+      "confidence": 0.46,
+      "evidence_text": "Our automated evaluation framework employs multi-instance morphological analysis with clinical interpretability, formalized through the following mathematical constructs.",
+      "page_reference": "EVALUATION_PROTOCOL",
+      "notes": "The provided sections define metrics and list model implementations, but do not state explicit modeling assumptions (e.g., data distribution, independence, convergence). Evaluation metrics formulas are not assumptions about the learning models. No text mentions assumptions underlying the benchmarked models.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "software_framework",
+      "criterion_number": 3,
+      "criterion_name": "Software Framework",
+      "category": "models",
+      "present": false,
+      "confidence": 0.6,
+      "evidence_text": "We conducted experiments based on nnUNet, state-of-the-art training framework, and evaluate five widely-used methods, including UNet, VNet, UNETR, SwinUNETRand EfficientUNet.",
+      "page_reference": "Implementation Details section",
+      "notes": "The paper mentions using nnUNet but does not specify the software framework/library (e.g., PyTorch, TensorFlow) nor any version numbers for nnUNet or the underlying deep learning framework.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "hyperparameters_reported",
+      "criterion_number": 4,
+      "criterion_name": "Hyperparameters Reported",
+      "category": "models",
+      "present": false,
+      "confidence": 0.7,
+      "evidence_text": "\"All models were trained using Adam optimizer with initial learning rate 3e-4 and cosine decay schedule. We implemented a hybrid loss function combining dice loss and cross entropy loss. For 3D methods, we used patch-based training and test-time sliding window inference. Data augmentation included random cropping, rotation, and scaling. Detailed implementation of each segmentation methods is shown in Table . 2.\"",
+      "page_reference": "Implementation Details; Table 2",
+      "notes": "They report optimizer (Adam), init LR (3e-4), schedule (cosine), loss, input sizes, and some training/inference strategies. Missing key hyperparameters like batch size, optimizer betas/eps/weight decay, number of epochs, patch size specifics for 3D, augmentation parameters, sliding window overlap, and other architecture/optimizer settings. Thus not \"all hyperparameters specified.\"",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "hyperparameter_selection",
+      "criterion_number": 5,
+      "criterion_name": "Hyperparameter Selection Method",
+      "category": "models",
+      "present": false,
+      "confidence": 0.71,
+      "evidence_text": "\"All models were trained using Adam optimizerwith initial learning rate 3e-4 and cosine decay schedule... We implemented a hybrid loss function... Data augmentation included random cropping, rotation, and scaling. We performed three-fold cross-validation...\"",
+      "page_reference": "Implementation Details; Table 2",
+      "notes": "They list chosen hyperparameters (optimizer, LR, loss, augmentations, input sizes) but do not describe how these were selected (e.g., grid/random search, validation tuning). Cross-validation is for evaluation/ensembling, not stated as a hyperparameter selection method.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "baseline_implementation",
+      "criterion_number": 6,
+      "criterion_name": "Baseline Implementation",
+      "category": "models",
+      "present": false,
+      "confidence": 0.55,
+      "evidence_text": "Tables 3–5 list baseline methods (EfficientUNet, UNet 2D/3D, UNETR, SwinUNETR, VNet) and their performance metrics, but no details are provided on how these baselines were implemented or tuned.",
+      "page_reference": "Tables 3, 4, 5",
+      "notes": "While multiple baselines are compared across subsets, the provided sections lack descriptions of training settings, hyperparameters, preprocessing, data splits, or tuning procedures to ensure fair comparison.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "sensitivity_analysis",
+      "criterion_number": 7,
+      "criterion_name": "Sensitivity Analysis",
+      "category": "models",
+      "present": false,
+      "confidence": 0.66,
+      "evidence_text": "Our experimental evaluation focuses on revealing how dataset characteristics influence segmentation performance across different anatomical presentations... We analyze three clinically distinct subsets... Data augmentation included random cropping, rotation, and scaling... All models were trained using Adam optimizer with initial learning rate 3e-4 and cosine decay schedule.",
+      "page_reference": "Dataset-centric performance analysis; Implementation details",
+      "notes": "They compare performance across dataset subsets and architectures, but there is no ablation or parameter sensitivity study (e.g., varying patch size, loss components, learning rates, augmentation choices). No experiments analyzing impact of key design choices are reported.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "dataset_statistics",
+      "criterion_number": 8,
+      "criterion_name": "Dataset Statistics",
+      "category": "datasets",
+      "present": true,
+      "confidence": 0.77,
+      "evidence_text": "“Table 1 . Summary statistics of the Endplate3D-QCT dataset… Image Count | 119 | 25 | 26 | 170 … Avg Image Size … Spacing (mm) … L1–L5, S1 endplate count … endplate BMD (mg/cm^3) with mean ± SD.”",
+      "page_reference": "Table 1",
+      "notes": "They report dataset size, subsets, image size, voxel spacing, counts per vertebral level, and BMD statistics. Patient demographics or class distribution beyond subsets (CTSpine-Refined, LDD-Mild, LDD-Severe) are not detailed here, but core imaging/statistical properties are provided.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_splits",
+      "criterion_number": 9,
+      "criterion_name": "Dataset Splits",
+      "category": "datasets",
+      "present": true,
+      "confidence": 0.66,
+      "evidence_text": "“We performed three-fold cross-validation on the CTSpine-Refined subset and used an ensemble of the three models to make inferences on the other two subsets.”",
+      "page_reference": "Implementation Details",
+      "notes": "They specify a 3-fold cross-validation on one subset and inference on the other two. However, explicit train/val/test partitions or fold definitions (e.g., subject lists per fold) are not detailed.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_availability",
+      "criterion_number": 10,
+      "criterion_name": "Dataset Availability",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.38,
+      "evidence_text": "No explicit statement about how to access or request the Endplate3D-QCT dataset is found in the provided sections. Tables describe dataset statistics and benchmarks but do not include availability or links.",
+      "page_reference": "Tables 1, 4, and 5 (provided excerpts)",
+      "notes": "Given only the provided sections, there is no mention of public dataset names beyond Endplate3D-QCT nor an access URL or request process. The full paper may include this elsewhere, but it's not present here.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "dataset_ethics",
+      "criterion_number": 11,
+      "criterion_name": "Ethics Approval",
+      "category": "datasets",
+      "present": false,
+      "confidence": 0.3,
+      "evidence_text": "No mention of IRB/ethics approval or statement that approval was not required is present in the provided sections (Conclusion, Tables 4–5).",
+      "page_reference": "Conclusion; Tables 4–5",
+      "notes": "The supplied excerpts do not include any ethics/IRB statement. Such information is typically in Data, Methods, or Ethics sections. Unable to confirm without those sections.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "number_of_runs",
+      "criterion_number": 12,
+      "criterion_name": "Number of Runs",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.7,
+      "evidence_text": "We performed three-fold cross-validation on the CTSpine-Refined subset and used an ensemble of the three models to make inferences on the other two subsets.",
+      "page_reference": "Implementation Details",
+      "notes": "They mention 3-fold cross-validation and ensembling but do not specify the number of independent training/evaluation runs per method to assess variance (e.g., repeated seeds). No reporting of run counts or variance/CI across runs.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "results_with_variance",
+      "criterion_number": 13,
+      "criterion_name": "Results with Variance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.79,
+      "evidence_text": "Table 3/4/5 list single performance numbers per metric (e.g., Dice, Jaccard, HD95, ASD) for each method without ± standard deviation or confidence intervals.",
+      "page_reference": "Tables 3–5",
+      "notes": "All reported metrics appear as single values; no mention of multiple runs, variance, or confidence intervals. Thus variance across runs is not provided.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "statistical_significance",
+      "criterion_number": 14,
+      "criterion_name": "Statistical Significance",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.71,
+      "evidence_text": "Tables 3–5 list performance metrics (Precision, Recall, F1, Dice, Jaccard, HD95, ASD) for multiple methods, but no statistical tests (e.g., p-values, t-tests, Wilcoxon) or confidence intervals are reported.",
+      "page_reference": "Tables 3, 4, 5",
+      "notes": "While comprehensive metric comparisons are provided, there is no mention of hypothesis testing or statistical significance to validate performance differences.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "evaluation_metrics",
+      "criterion_number": 15,
+      "criterion_name": "Evaluation Metrics",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.74,
+      "evidence_text": "“Our automated evaluation framework employs multi-instance morphological analysis with clinical interpretability, formalized through the following mathematical constructs. Volumetric Metrics Given a predicted segmentation mask P and ground truth G in 3D space Ω ⊂ Z^3, we define: … For surface distance metrics, let S_P and S_G denote the lumbar endplate surfaces with point sets {p_i} and {g_j}, respectively.” And: “we assess the segmentation performance for each individual endplate instance, including Dice, Jaccard, HD95, and ASD.”",
+      "page_reference": "EVALUATION_PROTOCOL; IMPLEMENTATION_DETAILS",
+      "notes": "They explicitly state formalization and indicate sets and symbols for masks and surfaces, implying formulas are provided. They list metrics (Dice, Jaccard/IoU, HD95, ASD; also Precision/Recall/F1). Although the exact equations are truncated in the excerpt, the paper appears to define them mathematically.",
+      "importance": "critical"
+    },
+    {
+      "criterion_id": "runtime_reported",
+      "criterion_number": 16,
+      "criterion_name": "Runtime Reported",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.71,
+      "evidence_text": "Table 2 reports model parameters, input size, and FLOPs, but no wall-clock training or inference time. Tables 3 and 4 report performance metrics only.",
+      "page_reference": "Table 2; Tables 3-4",
+      "notes": "Computational cost is given as FLOPs, not actual runtime. No training time per epoch, total training time, or inference latency is provided.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "memory_footprint",
+      "criterion_number": 17,
+      "criterion_name": "Memory Footprint",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.4,
+      "evidence_text": "Table 2 reports model parameters, input sizes, and FLOPs, but there is no explicit mention of GPU memory or RAM requirements to run the methods.",
+      "page_reference": "Table 2: Implementation details of each method",
+      "notes": "While input size and FLOPs can correlate with memory demand, the paper sections provided do not specify required GPU memory or RAM for training/inference. No explicit memory footprint statement found.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "failure_analysis",
+      "criterion_number": 18,
+      "criterion_name": "Failure Analysis",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.83,
+      "evidence_text": "“However, even in this optimal scenario, as shown in Fig.2, we observed false negatives in S1 endplate detection due to sacral curvature variations, highlighting inherent anatomical complexity.” “LDD-Severe: Pathological Extremes. Severely degenerated cases … exposed fundamental limitations.”",
+      "page_reference": "DATASET_CENTRIC_PERFORMANCE_ANALYSIS",
+      "notes": "They explicitly mention failure cases (false negatives at S1) and limitations under severe pathology, tying underperformance to anatomical complexity and degeneration. While brief, it fulfills discussing where methods underperform.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "clinical_significance",
+      "criterion_number": 19,
+      "criterion_name": "Clinical Significance",
+      "category": "experiments",
+      "present": true,
+      "confidence": 0.86,
+      "evidence_text": "“These resources establish a foundation for advancing endplate-specific analysis, contributing to improved research in spinal biomechanics, personalized implant design, and bone density mapping... current deep learning methods still fall short of the precision required for clinical application… intraoperative validation studies are essential to establish direct correlations between segmentation accuracy and surgical outcomes.”",
+      "page_reference": "Conclusion",
+      "notes": "The paper explicitly discusses practical clinical implications (implant design, surgical outcomes) and notes current limitations for clinical use, calling for intraoperative validation—beyond mere statistical metrics.",
+      "importance": "important"
+    },
+    {
+      "criterion_id": "computing_infrastructure",
+      "criterion_number": 20,
+      "criterion_name": "Computing Infrastructure",
+      "category": "experiments",
+      "present": false,
+      "confidence": 0.49,
+      "evidence_text": "No explicit hardware specifications (GPU model, CPU, number of GPUs, memory) are reported in the provided sections. Table 2 lists model parameters, input sizes, and FLOPs but not computing hardware.",
+      "page_reference": "Table 2; provided excerpts",
+      "notes": "The available excerpts only include implementation details (params, input size, FLOPs) and performance tables. If hardware specs are elsewhere in the paper, they are not in the provided sections.",
+      "importance": "important"
+    }
+  ],
+  "code_analysis": {
+    "methodology": {
+      "methodology_type": "deep_learning",
+      "requires_training": true,
+      "requires_datasets": true,
+      "requires_splits": true,
+      "methodology_notes": "The study benchmarks multiple CNN/Transformer-based medical image segmentation models (UNet 2D/3D, VNet, UNETR, SwinUNETR, EfficientUNet) trained within nnUNet-style pipelines. Training uses Adam (lr=3e-4) with cosine decay and a hybrid Dice + cross-entropy loss. 3D models use patch-based training and sliding-window inference; data augmentation includes random cropping, rotation, and scaling. Experiments are conducted on the Endplate3D-QCT dataset built from 170 QCT scans with pixel-level endplate annotations, split into three clinically distinct subsets (CTSpine-Refined, LDD-Mild, LDD-Severe). For the core subset (CTSpine-Refined), three-fold cross-validation is performed and models are ensembled across folds for inference on external subsets, implying the need for clearly defined train/val/test (or CV) splits for reproducibility. The evaluation protocol includes instance-level detection metrics (Precision/Recall/F1 via optimal instance matching), global volumetric segmentation metrics (Dice/Jaccard), and instance-wise surface distance metrics (HD95, ASD). The provided code (end_plate_postproc) implements evaluation: it resamples to 1 mm isotropic spacing, thresholds to binary masks, computes global Dice/Jaccard directly, and performs instance matching via connected-component labeling with a min-area threshold and a Dice>0.8 criterion to count true positives, then averages per-instance Dice/Jaccard/HD95/ASD (medpy.metric). Scripts aggregate scores into TSVs and generate table-ready outputs, mirroring Tables 3–5. Reproducibility essentials: access to the Zenodo dataset; exact model configs (patch sizes per Table 2, input sizes, FLOPs), augmentation details, optimizer/scheduler and loss settings; CV folds/text files listing image/label pairs; consistent resampling settings (1 mm spacing as in evaluate.py); threshold/area settings for instance filtering and the TP Dice>0.8 rule; and the ensemble procedure across the three CV models for external subset inference. Potential discrepancies to document/standardize include sagittal vs volumetric paths for some models, min_area=1000 filtering in instance conversion, connectivity (1 vs 3) used for labeling across scripts, and ensuring the same spacing and label conventions when reproducing metrics."
+    },
+    "structure": {
+      "is_standalone": false,
+      "base_repository": "general_segment (likely external training/inference repo referenced by output paths)",
+      "has_requirements": false,
+      "requirements_match_imports": null,
+      "requirements_issues": [
+        "No requirements.txt or environment specification found; cannot verify dependencies.",
+        "Code imports external libraries not in standard library: numpy, pandas, SimpleITK, scikit-image (skimage), torch, medpy, tqdm.",
+        "Paths and data I/O are hard-coded to local absolute directories (/mnt/...); not portable without modification.",
+        "evaluate.get_arr resamples every image to 1 mm spacing by default, which may not match paper’s evaluation protocol for native-spacing metrics; this implicit resampling should be documented or configurable.",
+        "Multiprocessing Pool with fixed size (36) may not be portable across systems and lacks if __name__ == '__main__' guards in some execution paths for Windows compatibility (evaluate.py uses it correctly in main guard, but Pool usage relies on large CPU counts).",
+        "collect_BMD.py and collect_info.py depend on evaluate.get_arr and evaluate.cvt2one_hot across modules, so execution order and PYTHONPATH must include end_plate_postproc.",
+        "Repository references model inference outputs produced elsewhere (general_segment/output/...); this repo provides post-processing/evaluation only, not training/inference."
+      ]
+    },
+    "components": {
+      "has_training_code": false,
+      "training_code_paths": [],
+      "has_evaluation_code": true,
+      "evaluation_code_paths": [
+        "end_plate_postproc/evaluate.py",
+        "end_plate_postproc/tsv2latex.py",
+        "end_plate_postproc/collect_info.py",
+        "end_plate_postproc/collect_BMD.py",
+        "end_plate_postproc/combine_endplate_spine/main.py"
+      ],
+      "has_documented_commands": false,
+      "command_documentation_location": null
+    },
+    "artifacts": {
+      "has_checkpoints": false,
+      "checkpoint_locations": [],
+      "has_dataset_links": true,
+      "dataset_coverage": "partial",
+      "dataset_links": [
+        {
+          "name": "Endplate3D-QCT Dataset",
+          "url": "https://zenodo.org/records/15784487?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjIwYzM1OTMzLTJjOGUtNGExOC05ZGI5LWNiNzIyYmFiZGVmNSIsImRhdGEiOnt9LCJyYW5kb20iOiI0ZWM0NTQ1MzRkYmYyN2Q5M2RmMzY1NGQzMjQxMDgzOSJ9.lXvF8QHwmVY6D3umNMypl99uHmlwC7-kvyZuaOGXFSOeYLQNbre8mMh258PK3MdQqxr4OB10ehvIwkQQ0K3c7Q"
+        }
+      ]
+    },
+    "dataset_splits": {
+      "splits_specified": true,
+      "splits_provided": true,
+      "random_seeds_documented": false,
+      "splits_notes": "The paper states a three-fold cross-validation on the CTSpine-Refined subset and using an ensemble of the three CV models to infer on the other two subsets (LDD-Mild/LDD-Severe). The code operationalizes this with explicit fold-based filelists and separate external-test lists: inner (CV) uses txt templates new_label_fold_{0,1,2}[ _sag for 2D]; external subsets are referenced as easy (LDD-Mild) and hard (LDD-Severe) via files new_label_easy_False.txt and new_label_hard_False.txt. Evaluation scripts (evaluate.py, collect_info.py, tsv2latex.py) consistently consume these deterministic lists, indicating fixed, pre-defined splits rather than on-the-fly random partitioning. Although the repo does not include the actual txt files (they are referenced via absolute paths), the existence and naming of fold-specific lists demonstrate that exact splits are defined. No random seed configuration is documented in the paper excerpts or code. For strict reproducibility, the split list files should be included or recreated; otherwise, one must obtain the exact txt files to replicate the folds and external test sets precisely."
+    },
+    "documentation": {
+      "has_readme": true,
+      "has_results_table": true,
+      "has_reproduction_commands": false,
+      "documentation_notes": "The repository includes a concise README that identifies the project (Endplate3D-QCT), links to the dataset on Zenodo, and points to the evaluation code directory. However, it lacks setup instructions (environment, dependencies, installation) and explicit commands or scripts for end-to-end reproduction (training, inference, evaluation). The codebase contains several evaluation and post-processing scripts with hard-coded, machine-specific absolute paths, which hinders portability and reproducibility. The evaluation scripts (evaluate.py, tsv2latex.py) clearly implement metric computation and table generation consistent with the paper’s reported metrics (Detection: Precision/Recall/F1; Segmentation: global Dice/Jaccard; Instance: Dice, Jaccard, HD95, ASD), and they aggregate results into TSVs suitable for producing the reported tables. The presence of tsv2latex.py suggests a direct path to generate results tables akin to those in the paper. collect_BMD.py and collect_info.py provide dataset statistics and BMD summaries aligned with Table 1, but they also rely on absolute paths and undocumented helper files (e.g., text lists). There are no documented reproduction commands or configuration examples for running model training/inference; evaluation path patterns imply external training outputs produced by other code, not included or referenced with runnable instructions. Overall, documentation is minimal and oriented to users already familiar with the authors' environment; improving with environment setup, relative paths/configs, sample command lines, and clarified data layout would significantly enhance reproducibility."
+    }
+  }
+}

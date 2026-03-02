@@ -1,0 +1,23 @@
+{
+  "paper_analysis_by_category": {
+    "models": "3/7",
+    "datasets": "3/4",
+    "experiments": "2/9"
+  },
+  "code_analysis": {
+    "score_breakdown": {
+      "code_completeness": 100.0,
+      "dependencies": 0.0,
+      "artifacts": 40.0,
+      "dataset_splits": 100.0,
+      "documentation": 37.5
+    },
+    "reproducibility_score": 64.3,
+    "recommendations": [
+      "Add requirements/dependencies file with all necessary packages and versions",
+      "Provide dataset download links",
+      "Create comprehensive README file",
+      "Document step-by-step reproduction commands"
+    ]
+  }
+}
